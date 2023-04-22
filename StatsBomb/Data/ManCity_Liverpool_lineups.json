@@ -1,0 +1,1265 @@
+[ {
+    "team_id" : 746,
+    "team_name" : "Manchester City WFC",
+    "lineup" : [ {
+      "player_id" : 4637,
+      "player_name" : "Ellie Roebuck",
+      "player_nickname" : null,
+      "birth_date" : "1999-09-23",
+      "player_gender" : "female",
+      "player_height" : 174.0,
+      "player_weight" : 58.0,
+      "jersey_number" : 1,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ {
+        "position_id" : 1,
+        "position" : "Goalkeeper",
+        "from" : "00:00:00.000",
+        "to" : null,
+        "from_period" : 1,
+        "to_period" : null,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 4649,
+      "player_name" : "Esme Beth Morgan",
+      "player_nickname" : "Esme Morgan",
+      "birth_date" : "2000-10-18",
+      "player_gender" : "female",
+      "player_height" : 177.0,
+      "player_weight" : 60.0,
+      "jersey_number" : 14,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ {
+        "position_id" : 6,
+        "position" : "Left Back",
+        "from" : "00:00:00.000",
+        "to" : null,
+        "from_period" : 1,
+        "to_period" : null,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 4651,
+      "player_name" : "Demi Stokes",
+      "player_nickname" : null,
+      "birth_date" : "1991-12-12",
+      "player_gender" : "female",
+      "player_height" : 162.0,
+      "player_weight" : 50.0,
+      "jersey_number" : 3,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ ],
+      "stats" : [ ]
+    }, {
+      "player_id" : 6818,
+      "player_name" : "Hayley Emma Raso",
+      "player_nickname" : null,
+      "birth_date" : "1994-09-05",
+      "player_gender" : "female",
+      "player_height" : 161.0,
+      "player_weight" : 60.0,
+      "jersey_number" : 13,
+      "country" : {
+        "id" : 14,
+        "name" : "Australia"
+      },
+      "positions" : [ {
+        "position_id" : 17,
+        "position" : "Right Wing",
+        "from" : "01:08:22.694",
+        "to" : null,
+        "from_period" : 2,
+        "to_period" : null,
+        "start_reason" : "Substitution - On (Tactical)",
+        "end_reason" : "Final Whistle",
+        "counterpart_id" : 15570,
+        "counterpart_name" : "Chloe Kelly"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 1,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 10163,
+      "player_name" : "Leila Ouahabi El Ouahabi",
+      "player_nickname" : "Leila Ouahabi",
+      "birth_date" : "1993-03-22",
+      "player_gender" : "female",
+      "player_height" : 171.0,
+      "player_weight" : 58.0,
+      "jersey_number" : 15,
+      "country" : {
+        "id" : 214,
+        "name" : "Spain"
+      },
+      "positions" : [ ],
+      "stats" : [ ]
+    }, {
+      "player_id" : 10185,
+      "player_name" : "Stephanie Houghton",
+      "player_nickname" : null,
+      "birth_date" : "1988-04-23",
+      "player_gender" : "female",
+      "player_height" : 174.0,
+      "player_weight" : 60.0,
+      "jersey_number" : 6,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ ],
+      "stats" : [ ]
+    }, {
+      "player_id" : 10252,
+      "player_name" : "Alex Greenwood",
+      "player_nickname" : null,
+      "birth_date" : "1993-09-07",
+      "player_gender" : "female",
+      "player_height" : 168.0,
+      "player_weight" : 62.0,
+      "jersey_number" : 5,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ {
+        "position_id" : 5,
+        "position" : "Left Center Back",
+        "from" : "00:00:00.000",
+        "to" : null,
+        "from_period" : 1,
+        "to_period" : null,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 15555,
+      "player_name" : "Lauren Hemp",
+      "player_nickname" : null,
+      "birth_date" : "2000-08-07",
+      "player_gender" : "female",
+      "player_height" : 163.0,
+      "player_weight" : 50.0,
+      "jersey_number" : 11,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ {
+        "position_id" : 21,
+        "position" : "Left Wing",
+        "from" : "00:00:00.000",
+        "to" : null,
+        "from_period" : 1,
+        "to_period" : null,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 1,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 15570,
+      "player_name" : "Chloe Kelly",
+      "player_nickname" : null,
+      "birth_date" : "1998-01-15",
+      "player_gender" : "female",
+      "player_height" : 168.0,
+      "player_weight" : 59.0,
+      "jersey_number" : 9,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ {
+        "position_id" : 17,
+        "position" : "Right Wing",
+        "from" : "00:00:00.000",
+        "to" : "01:08:22.694",
+        "from_period" : 1,
+        "to_period" : 2,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Substitution - Off (Tactical)",
+        "counterpart_id" : 6818,
+        "counterpart_name" : "Hayley Emma Raso"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 19416,
+      "player_name" : "Laura Coombs",
+      "player_nickname" : null,
+      "birth_date" : "1991-01-29",
+      "player_gender" : "female",
+      "player_height" : 162.0,
+      "player_weight" : null,
+      "jersey_number" : 7,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ {
+        "position_id" : 15,
+        "position" : "Left Center Midfield",
+        "from" : "00:00:00.000",
+        "to" : null,
+        "from_period" : 1,
+        "to_period" : null,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 25554,
+      "player_name" : "Khadija Monifa Shaw",
+      "player_nickname" : null,
+      "birth_date" : "1997-01-31",
+      "player_gender" : "female",
+      "player_height" : 182.0,
+      "player_weight" : null,
+      "jersey_number" : 21,
+      "country" : {
+        "id" : 113,
+        "name" : "Jamaica"
+      },
+      "positions" : [ {
+        "position_id" : 23,
+        "position" : "Center Forward",
+        "from" : "00:00:00.000",
+        "to" : "01:22:43.527",
+        "from_period" : 1,
+        "to_period" : 2,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Substitution - Off (Tactical)",
+        "counterpart_id" : 35693,
+        "counterpart_name" : "Mary Boio Fowler"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 1,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 25632,
+      "player_name" : "Yui Hasegawa",
+      "player_nickname" : null,
+      "birth_date" : "1997-01-29",
+      "player_gender" : "female",
+      "player_height" : 154.0,
+      "player_weight" : null,
+      "jersey_number" : 25,
+      "country" : {
+        "id" : 114,
+        "name" : "Japan"
+      },
+      "positions" : [ {
+        "position_id" : 10,
+        "position" : "Center Defensive Midfield",
+        "from" : "00:00:00.000",
+        "to" : null,
+        "from_period" : 1,
+        "to_period" : null,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 32210,
+      "player_name" : "Laia Aleixandri López",
+      "player_nickname" : "Laia Aleixandri",
+      "birth_date" : "2000-08-25",
+      "player_gender" : "female",
+      "player_height" : 170.0,
+      "player_weight" : 55.0,
+      "jersey_number" : 4,
+      "country" : {
+        "id" : 214,
+        "name" : "Spain"
+      },
+      "positions" : [ {
+        "position_id" : 3,
+        "position" : "Right Center Back",
+        "from" : "00:00:00.000",
+        "to" : null,
+        "from_period" : 1,
+        "to_period" : null,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 34360,
+      "player_name" : "Alexandra MacIver",
+      "player_nickname" : null,
+      "birth_date" : "1998-06-18",
+      "player_gender" : "female",
+      "player_height" : 176.0,
+      "player_weight" : null,
+      "jersey_number" : 22,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ ],
+      "stats" : [ ]
+    }, {
+      "player_id" : 35693,
+      "player_name" : "Mary Boio Fowler",
+      "player_nickname" : null,
+      "birth_date" : "2003-02-14",
+      "player_gender" : "female",
+      "player_height" : 171.0,
+      "player_weight" : 66.0,
+      "jersey_number" : 8,
+      "country" : {
+        "id" : 14,
+        "name" : "Australia"
+      },
+      "positions" : [ {
+        "position_id" : 23,
+        "position" : "Center Forward",
+        "from" : "01:22:43.527",
+        "to" : null,
+        "from_period" : 2,
+        "to_period" : null,
+        "start_reason" : "Substitution - On (Tactical)",
+        "end_reason" : "Final Whistle",
+        "counterpart_id" : 25554,
+        "counterpart_name" : "Khadija Monifa Shaw"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 49938,
+      "player_name" : "Deyna Cristina Castellanos Naujenis",
+      "player_nickname" : null,
+      "birth_date" : "1999-04-18",
+      "player_gender" : "female",
+      "player_height" : 170.0,
+      "player_weight" : 58.0,
+      "jersey_number" : 10,
+      "country" : {
+        "id" : 246,
+        "name" : "Venezuela (Bolivarian Republic)"
+      },
+      "positions" : [ {
+        "position_id" : 13,
+        "position" : "Right Center Midfield",
+        "from" : "00:00:00.000",
+        "to" : null,
+        "from_period" : 1,
+        "to_period" : null,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 62666,
+      "player_name" : "Ingrid Filippa Angeldal",
+      "player_nickname" : null,
+      "birth_date" : "1997-07-14",
+      "player_gender" : "female",
+      "player_height" : 170.0,
+      "player_weight" : 69.0,
+      "jersey_number" : 12,
+      "country" : {
+        "id" : 220,
+        "name" : "Sweden"
+      },
+      "positions" : [ ],
+      "stats" : [ ]
+    }, {
+      "player_id" : 191851,
+      "player_name" : "Julie Blakstad",
+      "player_nickname" : null,
+      "birth_date" : "2001-08-27",
+      "player_gender" : "female",
+      "player_height" : 177.0,
+      "player_weight" : null,
+      "jersey_number" : 41,
+      "country" : {
+        "id" : 171,
+        "name" : "Norway"
+      },
+      "positions" : [ ],
+      "stats" : [ ]
+    }, {
+      "player_id" : 221888,
+      "player_name" : "Kerstin Yasmijn Casparij",
+      "player_nickname" : null,
+      "birth_date" : "2000-08-19",
+      "player_gender" : "female",
+      "player_height" : null,
+      "player_weight" : null,
+      "jersey_number" : 2,
+      "country" : {
+        "id" : 160,
+        "name" : "Netherlands"
+      },
+      "positions" : [ {
+        "position_id" : 2,
+        "position" : "Right Back",
+        "from" : "00:00:00.000",
+        "to" : null,
+        "from_period" : 1,
+        "to_period" : null,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 321997,
+      "player_name" : "Annie Hutchings",
+      "player_nickname" : null,
+      "birth_date" : null,
+      "player_gender" : "female",
+      "player_height" : null,
+      "player_weight" : null,
+      "jersey_number" : 36,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ ],
+      "stats" : [ ]
+    } ],
+    "formations" : [ {
+      "period" : 1,
+      "timestamp" : "00:00:00.000",
+      "reason" : "Starting XI",
+      "formation" : 433
+    } ],
+    "events" : [ {
+      "period" : 1,
+      "timestamp" : "00:00:00.000",
+      "type" : "Half Start"
+    }, {
+      "player_id" : 15555,
+      "player_name" : "Lauren Hemp",
+      "period" : 1,
+      "timestamp" : "00:20:49.644",
+      "type" : "Ground Pass",
+      "outcome" : "Assist"
+    }, {
+      "player_id" : 25554,
+      "player_name" : "Khadija Monifa Shaw",
+      "period" : 1,
+      "timestamp" : "00:20:50.947",
+      "type" : "Shot",
+      "outcome" : "Goal"
+    }, {
+      "period" : 1,
+      "timestamp" : "00:46:04.695",
+      "type" : "Half End"
+    }, {
+      "period" : 2,
+      "timestamp" : "00:45:00.000",
+      "type" : "Half Start"
+    }, {
+      "player_id" : 6818,
+      "player_name" : "Hayley Emma Raso",
+      "period" : 2,
+      "timestamp" : "01:14:14.105",
+      "type" : "Shot",
+      "outcome" : "Goal"
+    }, {
+      "period" : 2,
+      "timestamp" : "01:35:04.739",
+      "type" : "Half End"
+    } ]
+  }, {
+    "team_id" : 966,
+    "team_name" : "Liverpool WFC",
+    "lineup" : [ {
+      "player_id" : 4972,
+      "player_name" : "Katie Stengel",
+      "player_nickname" : null,
+      "birth_date" : "1992-02-29",
+      "player_gender" : "female",
+      "player_height" : 175.0,
+      "player_weight" : 59.0,
+      "jersey_number" : 24,
+      "country" : {
+        "id" : 241,
+        "name" : "United States of America"
+      },
+      "positions" : [ {
+        "position_id" : 24,
+        "position" : "Left Center Forward",
+        "from" : "00:00:00.000",
+        "to" : "01:15:45.691",
+        "from_period" : 1,
+        "to_period" : 2,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Tactical Shift"
+      }, {
+        "position_id" : 19,
+        "position" : "Center Attacking Midfield",
+        "from" : "01:15:45.691",
+        "to" : null,
+        "from_period" : 2,
+        "to_period" : null,
+        "start_reason" : "Tactical Shift",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 1,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 10093,
+      "player_name" : "Yana Daniëls",
+      "player_nickname" : null,
+      "birth_date" : "1992-05-08",
+      "player_gender" : "female",
+      "player_height" : 171.0,
+      "player_weight" : 53.0,
+      "jersey_number" : 20,
+      "country" : {
+        "id" : 22,
+        "name" : "Belgium"
+      },
+      "positions" : [ {
+        "position_id" : 22,
+        "position" : "Right Center Forward",
+        "from" : "01:15:07.932",
+        "to" : "01:15:45.691",
+        "from_period" : 2,
+        "to_period" : 2,
+        "start_reason" : "Substitution - On (Tactical)",
+        "end_reason" : "Tactical Shift",
+        "counterpart_id" : 15547,
+        "counterpart_name" : "Melissa Lawley"
+      }, {
+        "position_id" : 24,
+        "position" : "Left Center Forward",
+        "from" : "01:15:45.691",
+        "to" : null,
+        "from_period" : 2,
+        "to_period" : null,
+        "start_reason" : "Tactical Shift",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 10648,
+      "player_name" : "Shanice van de Sanden",
+      "player_nickname" : "Shanice van de Sanden",
+      "birth_date" : "1992-10-02",
+      "player_gender" : "female",
+      "player_height" : 168.0,
+      "player_weight" : 65.0,
+      "jersey_number" : 19,
+      "country" : {
+        "id" : 160,
+        "name" : "Netherlands"
+      },
+      "positions" : [ {
+        "position_id" : 9,
+        "position" : "Right Defensive Midfield",
+        "from" : "01:15:37.061",
+        "to" : "01:15:45.691",
+        "from_period" : 2,
+        "to_period" : 2,
+        "start_reason" : "Substitution - On (Tactical)",
+        "end_reason" : "Tactical Shift",
+        "counterpart_id" : 15706,
+        "counterpart_name" : "Rachel Furness"
+      }, {
+        "position_id" : 22,
+        "position" : "Right Center Forward",
+        "from" : "01:15:45.691",
+        "to" : null,
+        "from_period" : 2,
+        "to_period" : null,
+        "start_reason" : "Tactical Shift",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 15547,
+      "player_name" : "Melissa Lawley",
+      "player_nickname" : null,
+      "birth_date" : "1994-04-28",
+      "player_gender" : "female",
+      "player_height" : 164.0,
+      "player_weight" : 56.0,
+      "jersey_number" : 11,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ {
+        "position_id" : 22,
+        "position" : "Right Center Forward",
+        "from" : "00:00:00.000",
+        "to" : "01:15:07.932",
+        "from_period" : 1,
+        "to_period" : 2,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Substitution - Off (Tactical)",
+        "counterpart_id" : 10093,
+        "counterpart_name" : "Yana Daniëls"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 15618,
+      "player_name" : "Jasmine Matthews",
+      "player_nickname" : null,
+      "birth_date" : "1993-03-24",
+      "player_gender" : "female",
+      "player_height" : null,
+      "player_weight" : null,
+      "jersey_number" : 6,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ {
+        "position_id" : 11,
+        "position" : "Left Defensive Midfield",
+        "from" : "00:00:00.000",
+        "to" : "01:29:44.517",
+        "from_period" : 1,
+        "to_period" : 2,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Tactical Shift"
+      }, {
+        "position_id" : 5,
+        "position" : "Left Center Back",
+        "from" : "01:29:44.517",
+        "to" : null,
+        "from_period" : 2,
+        "to_period" : null,
+        "start_reason" : "Tactical Shift",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 15630,
+      "player_name" : "Leigh-Anne Robe",
+      "player_nickname" : null,
+      "birth_date" : "1993-12-26",
+      "player_gender" : "female",
+      "player_height" : null,
+      "player_weight" : null,
+      "jersey_number" : 3,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ ],
+      "stats" : [ ]
+    }, {
+      "player_id" : 15706,
+      "player_name" : "Rachel Furness",
+      "player_nickname" : null,
+      "birth_date" : "1988-06-19",
+      "player_gender" : "female",
+      "player_height" : 169.0,
+      "player_weight" : null,
+      "jersey_number" : 10,
+      "country" : {
+        "id" : 169,
+        "name" : "Northern Ireland"
+      },
+      "positions" : [ {
+        "position_id" : 9,
+        "position" : "Right Defensive Midfield",
+        "from" : "00:00:00.000",
+        "to" : "01:15:37.061",
+        "from_period" : 1,
+        "to_period" : 2,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Substitution - Off (Tactical)",
+        "counterpart_id" : 10648,
+        "counterpart_name" : "Shanice van de Sanden"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 16384,
+      "player_name" : "Carla Humphrey",
+      "player_nickname" : null,
+      "birth_date" : "1996-12-15",
+      "player_gender" : "female",
+      "player_height" : null,
+      "player_weight" : null,
+      "jersey_number" : 17,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ {
+        "position_id" : 19,
+        "position" : "Center Attacking Midfield",
+        "from" : "01:15:24.520",
+        "to" : "01:15:45.691",
+        "from_period" : 2,
+        "to_period" : 2,
+        "start_reason" : "Substitution - On (Tactical)",
+        "end_reason" : "Tactical Shift",
+        "counterpart_id" : 24237,
+        "counterpart_name" : "Missy Bo Kearns"
+      }, {
+        "position_id" : 9,
+        "position" : "Right Defensive Midfield",
+        "from" : "01:15:45.691",
+        "to" : null,
+        "from_period" : 2,
+        "to_period" : null,
+        "start_reason" : "Tactical Shift",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 18151,
+      "player_name" : "Gilly Louise Scarlett Flaherty",
+      "player_nickname" : "Gilly Flaherty",
+      "birth_date" : "1991-08-24",
+      "player_gender" : "female",
+      "player_height" : 169.0,
+      "player_weight" : 60.0,
+      "jersey_number" : 25,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ {
+        "position_id" : 3,
+        "position" : "Right Center Back",
+        "from" : "00:00:00.000",
+        "to" : null,
+        "from_period" : 1,
+        "to_period" : null,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 19687,
+      "player_name" : "Taylor Hinds",
+      "player_nickname" : null,
+      "birth_date" : "1999-04-25",
+      "player_gender" : "female",
+      "player_height" : 160.0,
+      "player_weight" : null,
+      "jersey_number" : 12,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ {
+        "position_id" : 8,
+        "position" : "Left Wing Back",
+        "from" : "00:00:00.000",
+        "to" : "01:22:42.576",
+        "from_period" : 1,
+        "to_period" : 2,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Substitution - Off (Tactical)",
+        "counterpart_id" : 19779,
+        "counterpart_name" : "Rhiannon Roberts"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 19777,
+      "player_name" : "Niamh Fahey",
+      "player_nickname" : null,
+      "birth_date" : "1987-10-13",
+      "player_gender" : "female",
+      "player_height" : 170.0,
+      "player_weight" : 59.0,
+      "jersey_number" : 5,
+      "country" : {
+        "id" : 109,
+        "name" : "Ireland"
+      },
+      "positions" : [ {
+        "position_id" : 4,
+        "position" : "Center Back",
+        "from" : "00:00:00.000",
+        "to" : null,
+        "from_period" : 1,
+        "to_period" : null,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 19779,
+      "player_name" : "Rhiannon Roberts",
+      "player_nickname" : null,
+      "birth_date" : "1990-08-30",
+      "player_gender" : "female",
+      "player_height" : null,
+      "player_weight" : null,
+      "jersey_number" : 4,
+      "country" : {
+        "id" : 249,
+        "name" : "Wales"
+      },
+      "positions" : [ {
+        "position_id" : 8,
+        "position" : "Left Wing Back",
+        "from" : "01:22:42.576",
+        "to" : "01:22:42.804",
+        "from_period" : 2,
+        "to_period" : 2,
+        "start_reason" : "Substitution - On (Tactical)",
+        "end_reason" : "Tactical Shift",
+        "counterpart_id" : 19687,
+        "counterpart_name" : "Taylor Hinds"
+      }, {
+        "position_id" : 7,
+        "position" : "Right Wing Back",
+        "from" : "01:22:42.804",
+        "to" : null,
+        "from_period" : 2,
+        "to_period" : null,
+        "start_reason" : "Tactical Shift",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 23465,
+      "player_name" : "Megan Campbell",
+      "player_nickname" : null,
+      "birth_date" : "1993-06-28",
+      "player_gender" : "female",
+      "player_height" : 173.0,
+      "player_weight" : 62.0,
+      "jersey_number" : 28,
+      "country" : {
+        "id" : 109,
+        "name" : "Ireland"
+      },
+      "positions" : [ {
+        "position_id" : 5,
+        "position" : "Left Center Back",
+        "from" : "00:00:00.000",
+        "to" : "01:29:44.517",
+        "from_period" : 1,
+        "to_period" : 2,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Tactical Shift"
+      }, {
+        "position_id" : 8,
+        "position" : "Left Wing Back",
+        "from" : "01:29:44.517",
+        "to" : null,
+        "from_period" : 2,
+        "to_period" : null,
+        "start_reason" : "Tactical Shift",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 24237,
+      "player_name" : "Missy Bo Kearns",
+      "player_nickname" : null,
+      "birth_date" : "2001-04-14",
+      "player_gender" : "female",
+      "player_height" : 0.0,
+      "player_weight" : 0.0,
+      "jersey_number" : 7,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ {
+        "position_id" : 19,
+        "position" : "Center Attacking Midfield",
+        "from" : "00:00:00.000",
+        "to" : "01:11:13.223",
+        "from_period" : 1,
+        "to_period" : 2,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Player Off"
+      }, {
+        "position_id" : 19,
+        "position" : "Center Attacking Midfield",
+        "from" : "01:11:32.808",
+        "to" : "01:15:24.520",
+        "from_period" : 2,
+        "to_period" : 2,
+        "start_reason" : "Player On",
+        "end_reason" : "Substitution - Off (Tactical)",
+        "counterpart_id" : 16384,
+        "counterpart_name" : "Carla Humphrey"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 32403,
+      "player_name" : "Emma Wilhelmina Koivisto",
+      "player_nickname" : null,
+      "birth_date" : "1994-09-25",
+      "player_gender" : "female",
+      "player_height" : 168.0,
+      "player_weight" : 56.0,
+      "jersey_number" : 2,
+      "country" : {
+        "id" : 77,
+        "name" : "Finland"
+      },
+      "positions" : [ {
+        "position_id" : 7,
+        "position" : "Right Wing Back",
+        "from" : "00:00:00.000",
+        "to" : "01:22:42.804",
+        "from_period" : 1,
+        "to_period" : 2,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Tactical Shift"
+      }, {
+        "position_id" : 8,
+        "position" : "Left Wing Back",
+        "from" : "01:22:42.804",
+        "to" : "01:29:39.174",
+        "from_period" : 2,
+        "to_period" : 2,
+        "start_reason" : "Tactical Shift",
+        "end_reason" : "Substitution - Off (Tactical)",
+        "counterpart_id" : 42834,
+        "counterpart_name" : "Charlotte Wardlaw"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 33664,
+      "player_name" : "Rachael Laws",
+      "player_nickname" : null,
+      "birth_date" : "1990-11-05",
+      "player_gender" : "female",
+      "player_height" : null,
+      "player_weight" : null,
+      "jersey_number" : 1,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ {
+        "position_id" : 1,
+        "position" : "Goalkeeper",
+        "from" : "00:00:00.000",
+        "to" : null,
+        "from_period" : 1,
+        "to_period" : null,
+        "start_reason" : "Starting XI",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 37173,
+      "player_name" : "Eartha Cumings",
+      "player_nickname" : null,
+      "birth_date" : "1999-06-11",
+      "player_gender" : "female",
+      "player_height" : 170.0,
+      "player_weight" : null,
+      "jersey_number" : 21,
+      "country" : {
+        "id" : 201,
+        "name" : "Scotland"
+      },
+      "positions" : [ ],
+      "stats" : [ ]
+    }, {
+      "player_id" : 42834,
+      "player_name" : "Charlotte Wardlaw",
+      "player_nickname" : null,
+      "birth_date" : "2003-02-20",
+      "player_gender" : "female",
+      "player_height" : 162.0,
+      "player_weight" : 62.0,
+      "jersey_number" : 8,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ {
+        "position_id" : 8,
+        "position" : "Left Wing Back",
+        "from" : "01:29:39.174",
+        "to" : "01:29:44.517",
+        "from_period" : 2,
+        "to_period" : 2,
+        "start_reason" : "Substitution - On (Tactical)",
+        "end_reason" : "Tactical Shift",
+        "counterpart_id" : 32403,
+        "counterpart_name" : "Emma Wilhelmina Koivisto"
+      }, {
+        "position_id" : 11,
+        "position" : "Left Defensive Midfield",
+        "from" : "01:29:44.517",
+        "to" : null,
+        "from_period" : 2,
+        "to_period" : null,
+        "start_reason" : "Tactical Shift",
+        "end_reason" : "Final Whistle"
+      } ],
+      "stats" : {
+        "own_goals" : 0,
+        "goals" : 0,
+        "assists" : 0,
+        "penalties_scored" : 0,
+        "penalties_missed" : 0,
+        "penalties_saved" : 0
+      }
+    }, {
+      "player_id" : 322358,
+      "player_name" : "Hannah Silcock",
+      "player_nickname" : null,
+      "birth_date" : "2004-09-18",
+      "player_gender" : "female",
+      "player_height" : null,
+      "player_weight" : null,
+      "jersey_number" : 34,
+      "country" : {
+        "id" : 68,
+        "name" : "England"
+      },
+      "positions" : [ ],
+      "stats" : [ ]
+    }, {
+      "player_id" : 322359,
+      "player_name" : "Ceri Holland",
+      "player_nickname" : null,
+      "birth_date" : "1997-12-12",
+      "player_gender" : "female",
+      "player_height" : 165.0,
+      "player_weight" : null,
+      "jersey_number" : 18,
+      "country" : {
+        "id" : 249,
+        "name" : "Wales"
+      },
+      "positions" : [ ],
+      "stats" : [ ]
+    } ],
+    "formations" : [ {
+      "period" : 1,
+      "timestamp" : "00:00:00.000",
+      "reason" : "Starting XI",
+      "formation" : 3412
+    } ],
+    "events" : [ {
+      "period" : 1,
+      "timestamp" : "00:00:00.000",
+      "type" : "Half Start"
+    }, {
+      "player_id" : 4972,
+      "player_name" : "Katie Stengel",
+      "period" : 1,
+      "timestamp" : "00:32:32.194",
+      "type" : "Shot",
+      "outcome" : "Goal"
+    }, {
+      "period" : 1,
+      "timestamp" : "00:46:04.695",
+      "type" : "Half End"
+    }, {
+      "period" : 2,
+      "timestamp" : "00:45:00.000",
+      "type" : "Half Start"
+    }, {
+      "period" : 2,
+      "timestamp" : "01:35:04.739",
+      "type" : "Half End"
+    } ]
+  } ]
