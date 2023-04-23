@@ -49,7 +49,12 @@ for i in matches:
     # Unnesting positions
     normalized_data = pd.json_normalize(data,
                                         record_path=['lineup', 'positions'],
-                                        meta = ['team_id', 'team_name', ['lineup', 'player_id']])
+                                        meta = ['team_id',
+                                                'team_name',
+                                                ['lineup', 'player_id'],
+                                                ['lineup', 'player_name'],
+                                                ['lineup', 'player_nickname']])
+    
     normalized_data['match_id'] = matches[i]
     lineups_positions = pd.concat([lineups_positions, normalized_data])
     
@@ -143,21 +148,44 @@ events['xgD'] = events['xgF'] - events['xgA']
 
 
 
+## Add minutes played and names/nicknames for each player
 
-obv = events.groupby('player.id')['obv_total_net'].sum().reset_index()
+
+total = events.groupby('player.id').agg(obv_total_net = ('obv_total_net', 'sum'),
+                                        shots = ('type.id', lambda x: (x==16).sum()),
+                                        fouls_committed = ('type.id', lambda x:(x==22).sum())
+                                       ).reset_index().fillna({'obv_total_net': 0}).astype({'player.id': 'int'})
 
 
+lineups_positions['to'] = lineups_positions['to'].fillna('01:33:00.000')
+
+lineups_positions['minutes'] = (pd.to_datetime(
+    lineups_positions['to'].str[:8], format = '%H:%M:%S') - pd.to_datetime(
+    lineups_positions['from'].str[:8], format = '%H:%M:%S')).astype('timedelta64[m]')
+
+lineups_positions['player_name'] = lineups_positions['lineup.player_nickname'].combine_first(lineups_positions['lineup.player_name'])
+
+
+total = total.merge(lineups_positions.groupby('lineup.player_id').aggregate({'minutes': 'sum',
+                                                                             'player_name' : 'first'}),
+                    left_on = 'player.id',
+                    right_on = 'lineup.player_id',
+                    how='left')
+
+for i in ['shots', 'fouls_committed']:
+    total[i] = total[i] / (total['minutes']/90)
 
 lineups_AstonVilla = lineups[lineups['match_id'] == matches['AstonVilla']]
-lineups_AstonVilla.loc['player_name'] = lineups_AstonVilla.player_nickname.combine_first(lineups_AstonVilla.player_name)
-
 
 
 columns = ['minute', 'second', 'team.id', 'opponent.id',
            'GF', 'GA', 'GD', 'status',
            'xgF', 'xgA', 'xgD',
-           'player.id', 'position_off', 'sum_obv_off', 'obv_off',
-           'substitution.replacement.id', 'position_in', 'sum_obv_in']
+           'player.id', 'position_off',
+           'sum_obv_off',
+           'obv_off',
+           'substitution.replacement.id', 'position_in', 'sum_obv_in'
+          ]
 
 categorical = ['team.id', 'opponent.id', 'status',
                'player.id', 'position_off',

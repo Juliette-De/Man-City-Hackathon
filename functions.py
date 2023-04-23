@@ -1,6 +1,6 @@
 import pandas as pd
 
-from load_data import events, obv, lineups_AstonVilla, columns, categorical, ohe
+from load_data import events, total, lineups_AstonVilla, columns, categorical, ohe
 
 
 
@@ -22,15 +22,25 @@ def build_test(m):
 
     players_on_pitch = events_AstonVilla[(events_AstonVilla['team.id'] == 746) &
                                          (~events_AstonVilla['player.id'].isin(substitued))].groupby(
-        'player.id').aggregate({'position.id': pd.Series.mode,
-                                'obv_total_net' : 'sum'}).reset_index().rename(
-        columns={'position.id': 'position_off',
-                 'obv_total_net': 'obv_off'})
+        'player.id').agg(position_off = ('position.id', pd.Series.mode),
+                         obv_off = ('obv_total_net', 'sum'),
+                         shots_off = ('type.id', lambda x: (x==16).sum()),
+                         fouls_committed_off = ('type.id', lambda x: (x==22).sum())
+                        ).reset_index().fillna({'fouls_committed_off': 0})
 
-    players_on_pitch = players_on_pitch.merge(obv.rename(columns={'obv_total_net': 'sum_obv_off'}),
+    players_on_pitch = players_on_pitch.astype({'player.id': 'int'}) # to display the pictures
+    
+    
+    # Add total stats
+    
+    players_on_pitch = players_on_pitch.merge(total[['player.id', 'obv_total_net']].rename(
+        columns={'obv_total_net': 'sum_obv_off'}),
                                               how='left')
-
-
+    
+    
+    
+    
+    
     ### Players on the bench
 
     bench = lineups_AstonVilla[(lineups_AstonVilla['team_id'] == 746) &
@@ -48,9 +58,11 @@ def build_test(m):
     bench.loc[bench['player_name'] == 'Alexandra MacIver', 'position_in'] = 1
 
 
-    ## Add the OBV on the players on the bench
 
-    bench = bench.merge(obv.rename(columns={'player.id': 'player_id', 'obv_total_net': 'sum_obv_in'}),
+    ## Add the OBV on the players on the bench (no need to add features that we don't use to train)
+
+    bench = bench.merge(total.rename(columns={'player.id': 'player_id',
+                                              'obv_total_net': 'sum_obv_in'}),
                         how='left').fillna({'sum_obv_in': 0})
 
 
@@ -89,16 +101,15 @@ def preprocessing(array_hot_encoded, df):
 
 def predict_best_subs(model, m):
     
-    X_test = build_test(m)[columns]
+    X_test = build_test(m)
     
     test_array_hot_encoded = ohe.transform(X_test[categorical])
-    X_test = preprocessing(test_array_hot_encoded, X_test)
+    X_test_to_predict = preprocessing(test_array_hot_encoded, X_test[columns])
     
     
     # Predict on the model already trained
-    
-    train_predictions = model.predict(X_test)
-    
+    train_predictions = model.predict(X_test_to_predict)
+
     X_test['predicted_obv_in'] = train_predictions
     X_test['predicted_obv'] = X_test['predicted_obv_in'] - X_test['obv_off']
 
@@ -106,56 +117,49 @@ def predict_best_subs(model, m):
     # Rank by best OBV
     
     best_subs = X_test.sort_values('predicted_obv', ascending=False)
-
-
-    # Keep only relevant substitutions
     
-    best_subs['player'] = best_subs[[col for col in X_test if col.startswith('player.id')]].sum(axis=1)
-    best_subs = best_subs[best_subs['player']>0]
-
-    best_subs['substitution.replacement'] = best_subs[[col for col in X_test if col.startswith('substitution.replacement.id')]].sum(axis=1)
-    best_subs = best_subs[best_subs['substitution.replacement']>0]
-
-
-
-    # Extract information from one-hot-encoded columns and convert to int
-
-    best_subs['player.id'] = [int(float(x[10:])) for x in best_subs[
-        [col for col in X_test if col.startswith('player.id')]].idxmax(axis=1)]
-
-    best_subs['position_in'] = [int(float(x[12:])) for x in best_subs[
-        [col for col in X_test if col.startswith('position_in')]].idxmax(axis=1)]
-
-    best_subs['substitution.replacement.id'] = [int(float(x[28:])) for x in best_subs[
-        [col for col in X_test if col.startswith('substitution.replacement.id')]].idxmax(axis=1)]
-
-    best_subs['position_off'] = [int(float(x[13:])) for x in best_subs[
-        [col for col in X_test if col.startswith('position_off')]].idxmax(axis=1)]
-
+    
+    ## Filter by position
+    
+    # Look all the positions taken by a player in all avaible games
 
     best_subs = best_subs.merge(events.groupby('player.id')['position.id'].unique(),
                                 how='left',
                                 left_on = 'substitution.replacement.id', right_on = 'player.id').rename(
         columns={'position.id': 'possible_position_in'})
+    best_subs['possible_position_in'] = best_subs['possible_position_in'].fillna("").apply(list)
 
     
-    # Filter by position
+    # Filter
     best_subs = best_subs[[x in y for x,y in zip(best_subs['position_off'], best_subs['possible_position_in'])]
                          & (best_subs['predicted_obv']>0)]
 
     
-    # Add name of the two players
+    
+    # Add names and stats for the two players
+    
+    #print(best_subs['fouls_committed'])
+    
+    #print(total[total['player.id'] == 6818])
+    #print(best_subs[best_subs['substitution.replacement.id'] == 6818])
+    
+    #print(total['player.id'])
+    #print(best_subs['substitution.replacement.id'])
 
-    best_subs = best_subs.merge(lineups_AstonVilla[['player_id', 'player_name']].rename(
-        columns = {'player_id': 'player.id',
-                   'player_name': 'player_name_off'}),
+    best_subs = best_subs.merge(total[['player.id', 'player_name', 'shots', 'fouls_committed']].rename(
+        columns = {'player_name': 'player_name_off',
+                   'shots': 'shots_off_total',
+                   'fouls_committed': 'fouls_committed_off_total'}),
+                                on='player.id',
                                 how='left')
     
-    best_subs = best_subs.merge(lineups_AstonVilla[['player_id', 'player_name']].rename(
-        columns = {'player_id': 'substitution.replacement.id',
-                   'player_name': 'player_name_in'}),
+    best_subs = best_subs.merge(total[['player.id', 'player_name', 'shots', 'fouls_committed']].rename(
+        columns = {'player.id': 'substitution.replacement.id',
+                   'player_name': 'player_name_in',
+                   'shots': 'shots_in',
+                   'fouls_committed': 'fouls_committed_in'}),
                                 how='left')
+    
+    print(best_subs[best_subs['substitution.replacement.id'] == 6818])
 
-    return best_subs[['player_name_off', 'position_off',
-                      'player_name_in', 'position_in', 'possible_position_in',
-                      'predicted_obv']]
+    return best_subs[:5] # 5 first
