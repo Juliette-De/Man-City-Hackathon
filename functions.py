@@ -23,18 +23,22 @@ def build_test(m):
     players_on_pitch = events_AstonVilla[(events_AstonVilla['team.id'] == 746) &
                                          (~events_AstonVilla['player.id'].isin(substitued))].groupby(
         'player.id').agg(position_off = ('position.id', pd.Series.mode),
-                         obv_off = ('obv_total_net', 'sum'),
-                         shots_off = ('type.id', lambda x: (x==16).sum()),
-                         fouls_committed_off = ('type.id', lambda x: (x==22).sum())
+                         obv_off_match = ('obv_total_net', 'sum'),
+                         xg_off_match = ('shot.statsbomb_xg', 'sum'),
+                         shots_off_match = ('type.id', lambda x: (x==16).sum()),
+                         fouls_committed_off_match = ('type.id', lambda x: (x==22).sum())
                         ).reset_index().fillna({'fouls_committed_off': 0})
 
-    players_on_pitch = players_on_pitch.astype({'player.id': 'int'}) # to display the pictures
+    players_on_pitch = players_on_pitch.astype({'player.id': 'int', # to display the pictures
+                                               # 'shots_off_match': 'int', # to diplay integer
+                                               # 'fouls_committed_off_match': 'int'
+                                               })
     
     
     # Add total stats
     
     players_on_pitch = players_on_pitch.merge(total[['player.id', 'obv_total_net']].rename(
-        columns={'obv_total_net': 'sum_obv_off'}),
+        columns={'obv_total_net': 'obv_off'}),
                                               how='left')
     
     
@@ -109,20 +113,18 @@ def predict_best_subs(model, m):
     
     # Predict on the model already trained
     train_predictions = model.predict(X_test_to_predict)
-
     X_test['predicted_obv_in'] = train_predictions
-    X_test['predicted_obv'] = X_test['predicted_obv_in'] - X_test['obv_off']
-
+    
+    # Add the net difference between the two players in OBV
+    X_test['predicted_obv'] = X_test['predicted_obv_in'] - X_test['obv_off_match']
     
     # Rank by best OBV
-    
     best_subs = X_test.sort_values('predicted_obv', ascending=False)
     
     
     ## Filter by position
     
     # Look all the positions taken by a player in all avaible games
-
     best_subs = best_subs.merge(events.groupby('player.id')['position.id'].unique(),
                                 how='left',
                                 left_on = 'substitution.replacement.id', right_on = 'player.id').rename(
@@ -135,22 +137,18 @@ def predict_best_subs(model, m):
                          & (best_subs['predicted_obv']>0)]
 
     
-    
     # Add names and stats for the two players
+    
+    sub_colums = ['player.id', 'player_name', 'xg', 'shots', 'fouls_committed']
 
-
-    best_subs = best_subs.merge(total[['player.id', 'player_name', 'shots', 'fouls_committed']].rename(
-        columns = {'player_name': 'player_name_off',
-                   'shots': 'shots_off_total',
-                   'fouls_committed': 'fouls_committed_off_total'}),
+    best_subs = best_subs.merge(total[sub_colums].rename(
+        columns = {i: i+'_off' for i in sub_colums[1:]}),
                                 on='player.id',
                                 how='left')
     
-    best_subs = best_subs.merge(total[['player.id', 'player_name', 'shots', 'fouls_committed']].rename(
+    best_subs = best_subs.merge(total[sub_colums].rename(
         columns = {'player.id': 'substitution.replacement.id',
-                   'player_name': 'player_name_in',
-                   'shots': 'shots_in',
-                   'fouls_committed': 'fouls_committed_in'}),
+                   **{i: i+'_in' for i in sub_colums[1:]}}),
                                 how='left')
 
     return best_subs[:5] # 5 first

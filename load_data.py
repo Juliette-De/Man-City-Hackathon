@@ -152,8 +152,9 @@ events['xgD'] = events['xgF'] - events['xgA']
 
 
 total = events.groupby('player.id').agg(obv_total_net = ('obv_total_net', 'sum'),
+                                        xg = ('shot.statsbomb_xg', 'sum'),
                                         shots = ('type.id', lambda x: (x==16).sum()),
-                                        fouls_committed = ('type.id', lambda x:(x==22).sum())
+                                        fouls_committed = ('type.id', lambda x:(x==22).sum()),
                                        ).reset_index().fillna({'obv_total_net': 0}).astype({'player.id': 'int'})
 
 
@@ -172,7 +173,7 @@ total = total.merge(lineups_positions.groupby('lineup.player_id').aggregate({'mi
                     right_on = 'lineup.player_id',
                     how='left')
 
-for i in ['shots', 'fouls_committed']:
+for i in ['xg', 'shots', 'fouls_committed']:
     total[i] = total[i] / (total['minutes']/90)
 
 lineups_AstonVilla = lineups[lineups['match_id'] == matches['AstonVilla']]
@@ -182,8 +183,8 @@ columns = ['minute', 'second', 'team.id', 'opponent.id',
            'GF', 'GA', 'GD', 'status',
            'xgF', 'xgA', 'xgD',
            'player.id', 'position_off',
-           'sum_obv_off',
            'obv_off',
+           'obv_off_match',
            'substitution.replacement.id', 'position_in', 'sum_obv_in'
           ]
 
