@@ -161,7 +161,7 @@ lineups_positions['to'] = lineups_positions['to'].fillna('01:33:00.000')
 
 lineups_positions['minutes'] = (pd.to_datetime(
     lineups_positions['to'].str[:8], format = '%H:%M:%S') - pd.to_datetime(
-    lineups_positions['from'].str[:8], format = '%H:%M:%S')).astype('timedelta64[s]')/60
+    lineups_positions['from'].str[:8], format = '%H:%M:%S')).astype('timedelta64[s]').astype('float')/60
 
 lineups_positions['player_name'] = lineups_positions['lineup.player_nickname'].combine_first(lineups_positions['lineup.player_name'])
 

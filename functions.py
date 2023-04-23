@@ -137,14 +137,7 @@ def predict_best_subs(model, m):
     
     
     # Add names and stats for the two players
-    
-    #print(best_subs['fouls_committed'])
-    
-    #print(total[total['player.id'] == 6818])
-    #print(best_subs[best_subs['substitution.replacement.id'] == 6818])
-    
-    #print(total['player.id'])
-    #print(best_subs['substitution.replacement.id'])
+
 
     best_subs = best_subs.merge(total[['player.id', 'player_name', 'shots', 'fouls_committed']].rename(
         columns = {'player_name': 'player_name_off',
@@ -159,7 +152,5 @@ def predict_best_subs(model, m):
                    'shots': 'shots_in',
                    'fouls_committed': 'fouls_committed_in'}),
                                 how='left')
-    
-    print(best_subs[best_subs['substitution.replacement.id'] == 6818])
 
     return best_subs[:5] # 5 first
