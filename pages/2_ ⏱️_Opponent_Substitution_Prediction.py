@@ -21,6 +21,7 @@ team_to_filter = st.selectbox(
     ("Arsenal WFC", "Leicester City WFC", "Aston Villa", "Tottenham Hotspur Women", "Liverpool WFC", "Brighton & Hove Albion WFC"),
     label_visibility=st.session_state.visibility,
     disabled=st.session_state.disabled,
+    index=2
 )
 
 def display_player(player):
