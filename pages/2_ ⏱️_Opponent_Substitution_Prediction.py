@@ -1,15 +1,23 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
-from predict_functions import load_predictions, get_high_risk_players
 
+def load_predictions():
+    with open('StatsBomb/Data/predictions.csv') as data_file:    
+        predictions = pd.read_csv(data_file)  
+    return predictions
+
+def get_high_risk_players(team: str, minutes: int, goal_diff: int, predictions: pd.DataFrame):
+    filtered_predictions = predictions.loc[(predictions['team_name'].str.contains(team)) & (predictions['minutes'] >= minutes) & (np.abs(predictions['goal_diff'] - goal_diff) < 1.5)]
+    return filtered_predictions[["player_name", "team", "player_out_position"]].drop_duplicates()[:3]
 
 st.set_page_config(layout="wide")
 
-minute_to_filter = st.slider('Minute of the match', 45, 90, 45)  # min: 40, max: 90, default: 45
+minute_to_filter = st.slider('Match Time (minutes)', 45, 90, 45)  # min: 40, max: 90, default: 45
 
-goal_diff_to_filter = st.slider('Goal differential', -2, 2, 0) 
+goal_diff_to_filter = st.slider('Goal Differential', -2, 2, 0) 
 
 # Store the initial value of widgets in session state
 if "visibility" not in st.session_state:
@@ -17,7 +25,7 @@ if "visibility" not in st.session_state:
     st.session_state.disabled = False
 
 team_to_filter = st.selectbox(
-    "Select Opponent Team",
+    "Opponent Team",
     ("Arsenal WFC", "Leicester City WFC", "Aston Villa", "Tottenham Hotspur Women", "Liverpool WFC", "Brighton & Hove Albion WFC"),
     label_visibility=st.session_state.visibility,
     disabled=st.session_state.disabled,
