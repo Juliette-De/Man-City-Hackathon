@@ -149,7 +149,8 @@ for i in range(len(predicted_subs)):
                                                          ).apply(highlight, m=minute_to_filter, axis=None))
      
     with col2:
-        st.image(Image.open('pictures/' + str(s['substitution.replacement.id']) + '.png'))
+        st.image(Image.open('pictures/' + str(s['substitution.replacement.id']) + '.png'),
+                use_column_width=True)
         st.markdown('## <center>' + s['player_name_in'] + '</center>', unsafe_allow_html=True)
         st.dataframe(stats2.style.format({'Avg last 5 games': "{:.2f}"}))
         

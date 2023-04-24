@@ -24,7 +24,7 @@ team_to_filter = st.selectbox(
 )
 
 def display_player(player):
-    st.image(Image.open('pictures/' + player['player_name'] + '.png'))
+    st.image(Image.open('pictures/' + player['player_name'] + '.png'), use_column_width=True)
     st.markdown("""
     ### <p height:200px><center>""" + player['player_name'] + '</center></p>', unsafe_allow_html=True)
     st.markdown("""
@@ -44,6 +44,7 @@ def get_high_risk_players(team: str, minutes: int, goal_diff: int, predictions: 
 st.markdown('***')
 st.markdown('## Substitute Predictions')
 
+
 predictions = load_predictions() 
 
 players = get_high_risk_players(team_to_filter, minute_to_filter, goal_diff_to_filter, predictions)
@@ -53,9 +54,7 @@ players = players.replace({'Emma Stina Blackstenius': 'Stina Blackstenius',
                            'Laura Madison Blindkilde Brown': 'Laura Blindkilde Brown',
                            'Jemma Elizabeth Purfield': 'Jemma Purfield'}).drop_duplicates()
 
-for i in np.arange((len(players)//3)+1):
-    with st.container():
-        c = st.columns(3)
-        for j in np.arange(min(len(players)-3*i, 3)):
-            with c[j]:
-                display_player(players.iloc[3*i+j])
+c = st.columns(3)
+for i in np.arange(len(players)):
+    with c[i]:
+        display_player(players.iloc[i])
