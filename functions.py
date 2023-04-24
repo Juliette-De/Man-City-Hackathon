@@ -59,19 +59,16 @@ def build_test(m):
     # Exclude all players who appear in the events table
     bench = lineups_AstonVilla[(lineups_AstonVilla['team_id'] == 746) &
                                (~lineups_AstonVilla['player_id'].isin(
-                                   events.loc[(events['match_id'] == 3856030) & (events['minute']<m), 'player.id'].unique()))]
+                                   events.loc[(events['match_id'] == 3856030) & (events['minute']<m), 'player.id'].unique()))].drop(columns=['player_name'])
     
 
     ## Add the position and OBV on the players on the bench (no need to add features that we don't use to train)
-
-    bench = bench.merge(total.rename(columns={'player.id': 'player_id',
-                                              'position': 'position_in',
-                                              'obv': 'sum_obv_in'}),
-                        how='left').fillna({'sum_obv_in': 0})
     
-    # Players that didn't play during the 6 available games
-    bench.loc[bench['player_nickname'] == 'Vicky Losada', 'position_in'] = 14
-    bench.loc[bench['player_name'] == 'Alexandra MacIver', 'position_in'] = 1
+    bench = bench.merge(total[['player.id', 'position', 'obv']].rename(columns={'player.id': 'player_id',
+                                                                                'position': 'position_in',
+                                                                                'obv': 'sum_obv_in'}),
+                        on='player_id',
+                        how='left').fillna({'sum_obv_in': 0})
 
 
     bench = bench.rename(columns={'player_id': 'substitution.replacement.id'}) 
@@ -99,12 +96,12 @@ def build_test(m):
 
 def preprocessing(array_hot_encoded, df):
     
-    #Convert it to df
+    #Convert one_hot_encoded dataframe to df
     data_hot_encoded = pd.DataFrame(array_hot_encoded,
                                     index=df.index,
                                     columns = ohe.get_feature_names_out())
     
-    #Extract only the columns that didnt need to be encoded
+    #Extract only the columns that didnt need to be encoded: drop categorical columns and keep numerical ones
     data_other_cols = df.drop(columns=categorical)
     
     #Concatenate the two dataframes : 
@@ -124,6 +121,7 @@ def predict_best_subs(model, m):
     # Predict on the model already trained
     train_predictions = model.predict(X_test_to_predict)
     X_test['predicted_obv_in'] = train_predictions
+    #print(X_test[(X_test['player.id']==15570) & (X_test['substitution.replacement.id']==6818)])
     
     # Add the net difference between the two players in OBV
     X_test['predicted_obv'] = X_test['predicted_obv_in'] - X_test['obv_off_match']
@@ -160,6 +158,8 @@ def predict_best_subs(model, m):
         columns = {'player.id': 'substitution.replacement.id',
                    **{i: i+'_in' for i in sub_colums[1:]}}),
                                 how='left')
+    
+    best_subs = best_subs.replace('Hayley Emma Raso', 'Hayley Raso')
 
     return best_subs[:5] # 5 first
 

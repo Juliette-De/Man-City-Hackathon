@@ -161,14 +161,26 @@ lineups_positions['minutes'] = (pd.to_datetime(
 lineups_positions['player_name'] = lineups_positions['lineup.player_nickname'].combine_first(lineups_positions['lineup.player_name'])
 
 
+# We add minutes and player_name to total
 total = total.merge(lineups_positions.groupby('lineup.player_id').aggregate({'minutes': 'sum',
                                                                              'player_name' : 'first'}),
                     left_on = 'player.id',
                     right_on = 'lineup.player_id',
                     how='left')
+
+
 total = total.replace({'Deyna Cristina Castellanos Naujenis': 'Deyna Castellanos',
                        'Kerstin Yasmijn Casparij': 'Kerstin Casparij',
-                       'Alanna Stephanie Kennedy': 'Alanna Kennedy'})
+                       'Alanna Stephanie Kennedy': 'Alanna Kennedy',
+                       'Hayley Emma Raso': 'Hayley Raso',
+                       'Khadija Monifa Shaw': 'Khadija Shaw',
+                       'Mary Boio Fowler': 'Mary Fowler',
+                       'Ingrid Filippa Angeldal': 'Filippa Angeldal'})
+
+# Players that didn't play during the 6 available games
+total.loc[total['player_name'] == 'Vicky Losada', 'position'] = 14
+total.loc[total['player_name'] == 'Alexandra MacIver', 'position'] = 1
+
 
 
 for i in ['xg', 'shots', 'fouls_won', 'fouls_committed']:
@@ -182,8 +194,7 @@ columns = ['minute', 'second', 'team.id', 'opponent.id',
            'GF', 'GA', 'GD', 'status',
            'xgF', 'xgA', 'xgD',
            'player.id', 'position_off',
-           'obv_off',
-           'obv_off_match',
+           'obv_off', 'obv_off_match',
            'substitution.replacement.id', 'position_in', 'sum_obv_in']
 
 categorical = ['team.id', 'opponent.id', 'status',

@@ -3,7 +3,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-st.set_page_config(layout="wide")
+from PIL import Image
+
+#st.set_page_config(layout="wide")
 
 minute_to_filter = st.slider('Match Time (minutes)', 45, 90, 45)  # min: 40, max: 90, default: 45
 
@@ -22,6 +24,7 @@ team_to_filter = st.selectbox(
 )
 
 def display_player(player):
+    st.image(Image.open('pictures/' + player['player_name'] + '.png'))
     st.markdown("""
     ### <p height:200px><center>""" + player['player_name'] + '</center></p>', unsafe_allow_html=True)
     st.markdown("""
@@ -44,6 +47,9 @@ st.markdown('## Substitute Predictions')
 predictions = load_predictions() 
 
 players = get_high_risk_players(team_to_filter, minute_to_filter, goal_diff_to_filter, predictions)
+
+players = players.replace({'Emma Stina Blackstenius': 'Stina Blackstenius',
+                       'Emma Wilhelmina Koivisto': 'Emma Koivisto.png'}).drop_duplicates()
 
 for i in np.arange((len(players)//3)+1):
     with st.container():

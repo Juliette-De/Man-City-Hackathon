@@ -25,7 +25,7 @@ subs = subs.merge(lineups_positions[['match_id', 'counterpart_id', 'lineup.playe
                   left_on=['match_id', 'player.id', 'substitution.replacement.id'], 
                   right_on=['match_id', 'counterpart_id', 'lineup.player_id'])
 
-subs = subs.rename(columns={'position.id': 'position_off', # Position when the substitution happened, different from position_match
+subs = subs.rename(columns={'position.id': 'position_off', # Position when the substitution happened, different from position_off_match
                             'position_id': 'position_in'})
 
 
@@ -45,7 +45,7 @@ subs['obv'] = subs['obv_in'] - subs['obv_off_match']
 
 ## Adding summed On-Ball-Values
 
-subs = subs.merge(total.rename(columns={'obv': 'obv_off'}), how='left')
+subs = subs.merge(total.drop('player_name', axis=1).rename(columns={'obv': 'obv_off'}), how='left')
 subs = subs.merge(total[['player.id', 'obv']].rename(columns={'obv': 'sum_obv_in',
                                                               'player.id':'substitution.replacement.id'}),
                   how='left')
@@ -64,10 +64,8 @@ Y_train = train['obv_in']
 ## One hot encoding
 
 # get_dummies : not the same number of features in train and test data: https://stackoverflow.com/questions/67865253/valueerror-x-has-10-features-but-decisiontreeclassifier-is-expecting-11-featur
-
 train_array_hot_encoded = ohe.fit_transform(X_train[categorical])
 X_train = preprocessing(train_array_hot_encoded, X_train)
-X_train.head()
 
 model = make_pipeline(StandardScaler(with_mean=False), LinearRegression())
 model.fit(X_train, Y_train)
