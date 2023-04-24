@@ -30,7 +30,7 @@ def display_player(player):
     #### <p height:100px><center>""" + player['player_out_position'] + '</center></p>', unsafe_allow_html=True)
 
 def load_predictions():
-    with open('../StatsBomb/Data/predictions.csv') as data_file:    
+    with open('./StatsBomb/Data/predictions.csv') as data_file:    
         predictions = pd.read_csv(data_file)  
     return predictions
 
