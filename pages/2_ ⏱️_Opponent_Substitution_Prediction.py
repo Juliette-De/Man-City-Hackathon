@@ -29,8 +29,10 @@ def display_player(player):
     st.markdown("""
     #### <p height:100px><center>""" + player['player_out_position'] + '</center></p>', unsafe_allow_html=True)
 
-def load_predictions(): 
-    return pd.read_csv('../StatsBomb/Data/predictions.csv') 
+def load_predictions():
+    with open('../StatsBomb/Data/predictions.csv') as data_file:    
+        predictions = pd.read_csv(data_file)  
+    return predictions
 
 def get_high_risk_players(team: str, minutes: int, goal_diff: int, predictions: pd.DataFrame):
     filtered_predictions = predictions.loc[(predictions['team_name'].str.contains(team)) & (predictions['time'] >= minutes) & (np.abs(predictions['goal_diff'] - goal_diff) < 1.5)]
