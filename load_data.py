@@ -190,7 +190,8 @@ for i in ['xg', 'shots', 'fouls_won', 'fouls_committed']:
     
 # Helper variables
 
-columns = ['minute', 'second', 'team.id', 'opponent.id',
+# Variables used to train the model (no second)
+columns = ['team.id', 'opponent.id',
            'GF', 'GA', 'GD', 'status',
            'xgF', 'xgA', 'xgD',
            'player.id', 'position_off',
