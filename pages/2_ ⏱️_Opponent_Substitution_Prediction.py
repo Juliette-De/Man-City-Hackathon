@@ -39,7 +39,7 @@ def load_predictions():
 
 def get_high_risk_players(team: str, minutes: int, goal_diff: int, predictions: pd.DataFrame):
     filtered_predictions = predictions.loc[(predictions['team_name'].str.contains(team)) & (predictions['time'] >= minutes) & (np.abs(predictions['goal_diff'] - goal_diff) < 1.5)]
-    return filtered_predictions[["player_name", "team_name", "player_out_position", 'sub_risk']].sort_values(['sub_risk'], ascending=False).drop_duplicates()[:3]
+    return filtered_predictions[["player_name", "team_name", "player_out_position", 'sub_risk']].sort_values(['sub_risk'], ascending=False).drop_duplicates(['player_name', 'team_name'])[:3]
 
 st.markdown('***')
 st.markdown('## Substitute Predictions')
