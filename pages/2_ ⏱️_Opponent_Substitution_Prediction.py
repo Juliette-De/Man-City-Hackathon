@@ -3,16 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-
-def load_predictions():
-    with open('StatsBomb/Data/predictions.csv') as data_file:    
-        predictions = pd.read_csv(data_file)  
-    return predictions
-
-def get_high_risk_players(team: str, minutes: int, goal_diff: int, predictions: pd.DataFrame):
-    filtered_predictions = predictions.loc[(predictions['team_name'].str.contains(team)) & (predictions['time'] >= minutes) & (np.abs(predictions['goal_diff'] - goal_diff) < 1.5)]
-    return filtered_predictions[["player_name", "team_name", "player_out_position"]].drop_duplicates()[:3]
-
 st.set_page_config(layout="wide")
 
 minute_to_filter = st.slider('Match Time (minutes)', 45, 90, 45)  # min: 40, max: 90, default: 45
@@ -31,10 +21,6 @@ team_to_filter = st.selectbox(
     disabled=st.session_state.disabled,
 )
 
-predictions = load_predictions() 
-
-players = get_high_risk_player(team_to_filter, minute_to_filter, goal_diff_to_filter, predictions)
-
 def display_player(player):
     st.markdown("""
     #### <p height:200px><center>""" + player['player_name'] + '</center></p>', unsafe_allow_html=True)
@@ -43,9 +29,22 @@ def display_player(player):
     st.markdown("""
     #### <p height:100px><center>""" + player['player_out_position'] + '</center></p>', unsafe_allow_html=True)
 
+def load_predictions():
+    with open('../StatsBomb/Data/predictions.csv') as data_file:    
+        predictions = pd.read_csv(data_file)  
+    return predictions
+
+def get_high_risk_players(team: str, minutes: int, goal_diff: int, predictions: pd.DataFrame):
+    filtered_predictions = predictions.loc[(predictions['team_name'].str.contains(team)) & (predictions['time'] >= minutes) & (np.abs(predictions['goal_diff'] - goal_diff) < 1.5)]
+    return filtered_predictions[["player_name", "team_name", "player_out_position"]].drop_duplicates()[:3]
 
 st.markdown('***')
 st.markdown('## Substitute Predictions')
+
+predictions = load_predictions() 
+
+players = get_high_risk_player(team_to_filter, minute_to_filter, goal_diff_to_filter, predictions)
+
 for i in np.arange((len(players)//3)+1):
     with st.container():
         c = st.columns(3)
