@@ -49,7 +49,9 @@ predictions = load_predictions()
 players = get_high_risk_players(team_to_filter, minute_to_filter, goal_diff_to_filter, predictions)
 
 players = players.replace({'Emma Stina Blackstenius': 'Stina Blackstenius',
-                       'Emma Wilhelmina Koivisto': 'Emma Koivisto.png'}).drop_duplicates()
+                           'Emma Wilhelmina Koivisto': 'Emma Koivisto.png',
+                           'Laura Madison Blindkilde Brown': 'Laura Blindkilde Brown',
+                           'Jemma Elizabeth Purfield': 'Jemma Purfield'}).drop_duplicates()
 
 for i in np.arange((len(players)//3)+1):
     with st.container():
