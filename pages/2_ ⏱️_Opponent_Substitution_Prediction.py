@@ -25,7 +25,7 @@ def display_player(player):
     st.markdown("""
     #### <p height:200px><center>""" + player['player_name'] + '</center></p>', unsafe_allow_html=True)
     st.markdown("""
-    #### <p height:100px><center>""" + player['team'] + '</center></p>', unsafe_allow_html=True)
+    #### <p height:100px><center>""" + player['team_name'] + '</center></p>', unsafe_allow_html=True)
     st.markdown("""
     #### <p height:100px><center>""" + player['player_out_position'] + '</center></p>', unsafe_allow_html=True)
 
