@@ -31,7 +31,7 @@ team_to_filter = st.selectbox(
     disabled=st.session_state.disabled,
 )
 
-players = get_high_risk_player(team_to_filter, minute_to_filter, goal_diff_to_filter)
+players = get_high_risk_player(team_to_filter, minute_to_filter, goal_diff_to_filter, load_predictions())
 
 def display_player(player):
     st.markdown("""
