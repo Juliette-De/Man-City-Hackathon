@@ -23,11 +23,11 @@ team_to_filter = st.selectbox(
 
 def display_player(player):
     st.markdown("""
-    #### <p height:200px><center>""" + player['player_name'] + '</center></p>', unsafe_allow_html=True)
+    ### <p height:200px><center>""" + player['player_name'] + '</center></p>', unsafe_allow_html=True)
     st.markdown("""
-    #### <p height:100px><center>""" + player['team_name'] + '</center></p>', unsafe_allow_html=True)
+    ##### <p height:100px><center>""" + player['team_name'] + '</center></p>', unsafe_allow_html=True)
     st.markdown("""
-    #### <p height:100px><center>""" + player['player_out_position'] + '</center></p>', unsafe_allow_html=True)
+    ##### <p height:100px><center>""" + player['player_out_position'] + '</center></p>', unsafe_allow_html=True)
 
 def load_predictions():
     with open('./StatsBomb/Data/predictions.csv') as data_file:    
