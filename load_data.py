@@ -73,28 +73,25 @@ lineups_positions = lineups_positions.astype({'lineup.player_id': 'int'})
 
 
 
+### Build the events dataframe by adding some extra features
+
+
 ## Add home and away team ids for each event
-    
 events = events.merge(fawsl[['match_id', 'home_team.home_team_id', 'away_team.away_team_id']],
                       how='left')
 
 
 ## Add opponent team id for each event
-
 events['opponent.id'] = np.where(events['team.id'] == events['home_team.home_team_id'],
                                  events['away_team.away_team_id'],
                                  events['home_team.home_team_id'])
 
 
-
 ## Add the current score
 
-
 # Flag all goals (Shot + Own Goal For)
-
 events.loc[(events['shot.outcome.id'] == 97) | (events['type.id'] == 25), 'goal'] = 1
 events['goal'] = events['goal'].fillna(0)
-
 
 
 # Add score (goals for and against) at any time during the game
@@ -108,13 +105,8 @@ events.loc[away, 'away_team.goals'] = events[away].groupby(['match_id', 'team.id
 events['home_team.goals'] = events['home_team.goals'].fillna(method='ffill').fillna(0)
 events['away_team.goals'] = events['away_team.goals'].fillna(method='ffill').fillna(0)
 
-events['GF'] = np.where(home,
-                        events['home_team.goals'],
-                        events['away_team.goals'])
-
-events['GA'] = np.where(home,
-                        events['away_team.goals'],
-                        events['home_team.goals'])
+events['GF'] = np.where(home, events['home_team.goals'],  events['away_team.goals'])
+events['GA'] = np.where(home, events['away_team.goals'], events['home_team.goals'])
 
 
 
@@ -137,7 +129,6 @@ events['xgA'] = np.where(home,
                         events['home_team.xg'])
 
 
-
 ## Add status (win / draw / loose), goal and xG differences
 
 events.loc[events['GF']>events['GA'], 'status'] = 'W'
@@ -148,12 +139,15 @@ events['xgD'] = events['xgF'] - events['xgA']
 
 
 
-## Add minutes played and names/nicknames for each player
+
+### Build an aggregated dataframe with names/nicknames, minutes played and various metrics for each player
 
 
-total = events.groupby('player.id').agg(obv_total_net = ('obv_total_net', 'sum'),
+total = events.groupby('player.id').agg(position = ('position.id', pd.Series.mode),
+                                        obv = ('obv_total_net', 'sum'),
                                         xg = ('shot.statsbomb_xg', 'sum'),
                                         shots = ('type.id', lambda x: (x==16).sum()),
+                                        fouls_won = ('type.id', lambda x:(x==21).sum()),
                                         fouls_committed = ('type.id', lambda x:(x==22).sum()),
                                        ).reset_index().fillna({'obv_total_net': 0}).astype({'player.id': 'int'})
 
@@ -172,12 +166,17 @@ total = total.merge(lineups_positions.groupby('lineup.player_id').aggregate({'mi
                     left_on = 'player.id',
                     right_on = 'lineup.player_id',
                     how='left')
+total = total.replace({'Deyna Cristina Castellanos Naujenis': 'Deyna Castellanos',
+                       'Kerstin Yasmijn Casparij': 'Kerstin Casparij',
+                       'Alanna Stephanie Kennedy': 'Alanna Kennedy'})
 
-for i in ['xg', 'shots', 'fouls_committed']:
+
+for i in ['xg', 'shots', 'fouls_won', 'fouls_committed']:
     total[i] = total[i] / (total['minutes']/90)
 
-lineups_AstonVilla = lineups[lineups['match_id'] == matches['AstonVilla']]
 
+    
+# Helper variables
 
 columns = ['minute', 'second', 'team.id', 'opponent.id',
            'GF', 'GA', 'GD', 'status',
@@ -185,12 +184,18 @@ columns = ['minute', 'second', 'team.id', 'opponent.id',
            'player.id', 'position_off',
            'obv_off',
            'obv_off_match',
-           'substitution.replacement.id', 'position_in', 'sum_obv_in'
-          ]
+           'substitution.replacement.id', 'position_in', 'sum_obv_in']
 
 categorical = ['team.id', 'opponent.id', 'status',
                'player.id', 'position_off',
                'substitution.replacement.id', 'position_in']
 
-
 ohe = OneHotEncoder(sparse=False, handle_unknown="ignore")
+
+position = {'goalkeepers': 1,
+            'defenders': np.arange(2,9),
+            'midfielders': np.concatenate((np.arange(9,17),np.arange(18,21))),
+            'forwards': np.concatenate(([17],np.arange(21, 26)))}
+
+explanation = """On-Ball Value: *the net change in expected goal difference (change in likelihood of scoring - change in likelihood of conceding) over the next 2 possession chains as a result of the event.* The value given is the sum of the On-Ball Values of each event in which the player is involved. \n\n
+Statistics in the "Avg last 5 games" column are given per 90 minutes.\n\n"""
