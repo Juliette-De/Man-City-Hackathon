@@ -61,7 +61,7 @@ players = players.replace({'Emma Stina Blackstenius': 'Stina Blackstenius',
                            'Laura Madison Blindkilde Brown': 'Laura Blindkilde Brown',
                            'Jemma Elizabeth Purfield': 'Jemma Purfield',
                            'Carlotte Wubben-Moy': 'Lotte Wubben-Moy',
-                           'Caitlin Jade Foord': 'Caitlin  Foord'}).drop_duplicates()
+                           'Caitlin Jade Foord': 'Caitlin Foord'}).drop_duplicates()
 
 
 ### Outcome
