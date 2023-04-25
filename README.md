@@ -1,10 +1,10 @@
-# Hays x Man City Football Club Hackathon 2023
+# Hays x Man City Football Club Hackathon 2023: Substitution Recommender
 
 This application offers an in-game football substitution recommendation system. It is intended to be used as a decision-making aid during a football game.
 
 ## Quick start
 
-The application is deployed at [this adress](https://substitution-recommender.streamlit.app).
+The application is deployed at [this address](https://substitution-recommender.streamlit.app).
 
 Alternatively, to run it locally:
 
@@ -17,18 +17,26 @@ pip install -r path/requirements.txt
 
 - Launch the application:
 ```
-streamlit run path/↔️_Substitution_Suggestions.py.py
+streamlit run path/↔️_Substitution_Suggestions.py
 ```
 
 
 ## Features
 
 This application offers the following three features, each on one page:
-- The "↔️ Substitutions Suggestions" page features a substitution recommendation system based on StatsBomb's On-Ball Values. Every minute a model tests different combinations of possible substitutions and brings out those that would be the most profitable.
-  - On the one hand, it makes it possible to identify the players who are underperforming during the game;
-  - On the other hand, it suggests a potential substitute - based on her past performances and the context of the game.
+- The "↔️ Substitutions Suggestions" page features a substitution recommendation system based on StatsBomb's On-Ball Values. Every minute, a model tests different combinations of possible substitutions and brings out those that would be the most profitable.
+It therefore offers two features in one:
+  - identifying players who are underperforming in the ga﻿me in progress;
+  - suggesting a potential substitute to these players - based on past player performance and game context.
 - The "📈 All players" page offers an overview of the performance of all players on the pitch
-- The "⏱️ Opponent Substitution Prediction" page presents the probable future substitutions of the opponent.
+- The "⏱️ Opponent Substitution Prediction" page presents the probable future substitutions of the opposing team, based on historical data and the scenario of the game, to possibly allow the coach to anticipate.
+
+
+## Next steps
+
+- Consider not only the cumulative On-Ball Values but also a Time Series of their evolution during the match.
+- Include tracking data to also take into account off-ball events (pressing, etc.).
+
 
 
 ## Background
