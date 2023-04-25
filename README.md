@@ -10,9 +10,9 @@ Alternatively, to run it locally:
 
 - Clone this github repository or upload all of its files to the folder where you want to place this project.
 
-- Install the necessary packages from the requirements.txt file provided in the *webapp_final* folder. In the terminal, replacing path with the path of your dedicated folder:
+- Install the necessary packages from the requirements.txt file. In the terminal, replacing path with the path of your dedicated folder:
 ```
-pip install -r path/webapp_final/requirements.txt
+pip install -r path/requirements.txt
 ```
 
 - Launch the application:
