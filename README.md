@@ -1,4 +1,4 @@
-# Hays x Man City Football Club Hackathon 2023
+# Hays x Man City Football Club Hackathon 2023: Substitution Recommender
 
 This application offers an in-game football substitution recommendation system. It is intended to be used as a decision-making aid during a football game.
 
