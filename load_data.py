@@ -142,6 +142,7 @@ events['xgD'] = events['xgF'] - events['xgA']
 
 ### Build an aggregated dataframe with names/nicknames, minutes played and various metrics for each player
 
+events.loc[events['interception.outcome.id'].isin([4, 15, 16, 17]), 'interception'] = 1
 
 total = events.groupby('player.id').agg(position = ('position.id', pd.Series.mode),
                                         obv = ('obv_total_net', 'sum'),
@@ -149,6 +150,7 @@ total = events.groupby('player.id').agg(position = ('position.id', pd.Series.mod
                                         shots = ('type.id', lambda x: (x==16).sum()),
                                         fouls_won = ('type.id', lambda x:(x==21).sum()),
                                         fouls_committed = ('type.id', lambda x:(x==22).sum()),
+                                        interceptions = ('interception', lambda x:(x==1).sum())
                                        ).reset_index().fillna({'obv_total_net': 0}).astype({'player.id': 'int'})
 
 
@@ -183,7 +185,7 @@ total.loc[total['player_name'] == 'Alexandra MacIver', 'position'] = 1
 
 
 
-for i in ['xg', 'shots', 'fouls_won', 'fouls_committed']:
+for i in ['xg', 'shots', 'fouls_won', 'fouls_committed', 'interceptions']:
     total[i] = total[i] / (total['minutes']/90)
 
 
@@ -210,4 +212,5 @@ position = {'goalkeepers': 1,
             'forwards': np.concatenate(([17],np.arange(21, 26)))}
 
 explanation = """On-Ball Value: *the net change in expected goal difference (change in likelihood of scoring - change in likelihood of conceding) over the next 2 possession chains as a result of the event.* The value given is the sum of the On-Ball Values of each event in which the player is involved. \n\n
-Statistics in the "Avg last 5 games" column are given per 90 minutes.\n\n"""
+Statistics in the "Avg last 5 games" column are given per 90 minutes.\n\n
+The metrics displayed depend on the position of the player during the match."""

@@ -110,6 +110,7 @@ for i in range(len(predicted_subs)):
     shots_in = ['', s['shots_in']]
     fouls_won_in = ['', s['fouls_won_in']]
     fouls_committed_in = ['', s['fouls_committed_in']]
+    interceptions_in = ['', s['interceptions_in']]
     
     # Stats for the player to be substitued off
     stats1 = stats_player(s)
@@ -125,8 +126,8 @@ for i in range(len(predicted_subs)):
                              col_in).astype({col_in[1]: 'float'})
     
     elif s['position_off'] in position['defenders']:
-        stats2 = pd.DataFrame(np.array([obv_in, fouls_committed_in]),
-                             [obv_row, 'Fouls Committed'],
+        stats2 = pd.DataFrame(np.array([obv_in, interceptions_in, fouls_committed_in]),
+                             [obv_row, 'Interceptions','Fouls Committed'],
                              col_in).astype({col_in[1]: 'float'})
     
     elif s['position_off'] in position['midfielders']:
@@ -139,7 +140,7 @@ for i in range(len(predicted_subs)):
                              [obv_row, 'xG', 'Shots', 'Fouls Won'],
                              col_in).astype({col_in[1]: 'float'})
         
-    int_col = [value for value in ['Shots', 'Fouls Won','Fouls Committed'] if value in stats1.index]
+    int_col = [value for value in ['Shots', 'Fouls Won', 'Fouls Committed', 'Interceptions'] if value in stats1.index]
     
     
     with col1:

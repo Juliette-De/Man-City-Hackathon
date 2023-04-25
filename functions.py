@@ -29,7 +29,8 @@ def stats_match(m):
                          xg_off_match = ('shot.statsbomb_xg', 'sum'),
                          shots_off_match = ('type.id', lambda x: (x==16).sum()),
                          fouls_won_off_match = ('type.id', lambda x: (x==21).sum()),
-                         fouls_committed_off_match = ('type.id', lambda x: (x==22).sum())
+                         fouls_committed_off_match = ('type.id', lambda x: (x==22).sum()),
+                         interceptions_off_match = ('interception', lambda x:(x==1).sum())
                         ).reset_index().fillna({'fouls_committed_off': 0})
 
     players_on_pitch = players_on_pitch.astype({'player.id': 'int'}) # to display the pictures
@@ -147,7 +148,7 @@ def predict_best_subs(model, m):
     
     # Add names and stats for the two players
     
-    sub_colums = ['player.id', 'player_name', 'xg', 'shots', 'fouls_won', 'fouls_committed']
+    sub_colums = ['player.id', 'player_name', 'xg', 'shots', 'fouls_won', 'fouls_committed', 'interceptions']
 
     best_subs = best_subs.merge(total[sub_colums].rename(
         columns = {i: i+'_off' for i in sub_colums[1:]}),
@@ -174,6 +175,7 @@ def stats_player(s):
     shots = [s['shots_off_match'], s['shots_off']]
     fouls_won = [s['fouls_won_off_match'], s['fouls_won_off']]
     fouls_committed = [s['fouls_committed_off_match'], s['fouls_committed_off']]
+    interceptions = [s['interceptions_off_match'], s['interceptions_off']]
     
     obv_row='On-Ball Value'
     
@@ -183,8 +185,8 @@ def stats_player(s):
                              col)
     
     elif s['position_off'] in np.arange(2,9): # Back
-        return pd.DataFrame(np.array([obv, fouls_committed]),
-                             [obv_row, 'Fouls Committed'],
+        return pd.DataFrame(np.array([obv, interceptions, fouls_committed]),
+                             [obv_row, 'Interceptions', 'Fouls Committed'],
                              col)
         
     elif s['position_off'] in np.concatenate((np.arange(9,17),np.arange(18,21))): # Midfield
@@ -217,7 +219,7 @@ def highlight(x, m):
     
     for i in df1.index[1:]:
         
-        if i in ['xG', 'Shots', 'Fouls Won']:
+        if i in ['xG', 'Shots', 'Fouls Won', 'Interceptions']:
             if x.loc[i, col1]*(90/m) < x.loc[i, col2]:
                 df1.loc[[i], col1] = 'color: red'
             elif x.loc[i, col1] > x.loc[i, col2]:
