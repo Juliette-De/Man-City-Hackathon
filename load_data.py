@@ -31,7 +31,7 @@ for i in matches:
     
     with open('StatsBomb/Data/ManCity_' + i + '_events.json') as data_file:    
         data = json.load(data_file)
-    normalized_data = pd.json_normalize(data).sort_values(['minute', 'second'])
+    normalized_data = pd.json_normalize(data).sort_values(['minute', 'second', 'index'])
     normalized_data['match_id'] = matches[i]
     events = pd.concat([events, normalized_data])
 
