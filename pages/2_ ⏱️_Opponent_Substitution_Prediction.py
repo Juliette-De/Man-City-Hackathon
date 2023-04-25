@@ -59,7 +59,8 @@ players = get_high_risk_players(team_to_filter, minute_to_filter, GD, prediction
 players = players.replace({'Emma Stina Blackstenius': 'Stina Blackstenius',
                            'Emma Wilhelmina Koivisto': 'Emma Koivisto',
                            'Laura Madison Blindkilde Brown': 'Laura Blindkilde Brown',
-                           'Jemma Elizabeth Purfield': 'Jemma Purfield'}).drop_duplicates()
+                           'Jemma Elizabeth Purfield': 'Jemma Purfield',
+                           'Carlotte Wubben-Moy': 'Lotte Wubben-Moy'}).drop_duplicates()
 
 
 ### Outcome
