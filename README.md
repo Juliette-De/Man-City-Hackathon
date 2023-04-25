@@ -33,8 +33,8 @@ This application offers the following three features, each on one page:
 
 ## Next steps
 
-- Watch not only the cumulative On-Ball Values but also a Time Series of their evolution during the game;
-- Include tracking data to also watch off-ball events (pressing, etc.).
+- Consider not only the cumulative On-Ball Values but also a Time Series of their evolution during the match.
+- Include tracking data to also take into account off-ball events (pressing, etc.).
 
 
 
