@@ -1,5 +1,5 @@
 import streamlit as st
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
@@ -9,6 +9,11 @@ from load_data import events
 
 
 ### Parameters
+
+# Store the initial value of widgets in session state
+if "visibility" not in st.session_state:
+    st.session_state.visibility = "visible"
+    st.session_state.disabled = False
 
 team_to_filter = st.selectbox("Game",
                               ("Arsenal WFC", "Leicester City WFC", "Aston Villa", "Tottenham Hotspur Women", "Liverpool WFC", "Brighton & Hove Albion WFC"),
@@ -30,11 +35,6 @@ if GD_ManCity>0:
 else:
     st.markdown('Goal diffential: ' + str(GD))
 
-
-# Store the initial value of widgets in session state
-if "visibility" not in st.session_state:
-    st.session_state.visibility = "visible"
-    st.session_state.disabled = False
 
 
 ### Predictions
