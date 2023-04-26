@@ -34,8 +34,9 @@ It therefore offers two features in one:
 
 ## Next steps
 
+
 - Consider not only the cumulative On-Ball Values but also a Time Series of their evolution during the match.
-- Include tracking data to also take into account off-ball events (pressing, etc.).
+- Include data relating to off-ball events, in particular through tracking data (pressing, etc.)
 
 
 
