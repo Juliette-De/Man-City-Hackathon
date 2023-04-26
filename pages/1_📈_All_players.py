@@ -24,6 +24,7 @@ st.title('All players')
 
 all_players = stats_match(minute_to_filter)
 
+
 # Add name and total stats
     
 #sub_colums = ['player.id', 'player_name', 'xg', 'shots', 'fouls_committed']

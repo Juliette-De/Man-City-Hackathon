@@ -9,7 +9,18 @@ lineups_AstonVilla = lineups[lineups['match_id'] == matches['AstonVilla']] # for
 
 def stats_match(m):
     """
-    m: minute of the game
+    Returns match metrics of players on the pitch at minute m
+    Used into the function build_test and the page "All players"
+    
+    Parameters
+    ----------
+    m: int
+        Minute of the game
+        
+    Returns
+    -------
+    DataFrame
+        A DataFrame of math metrics of all ManCity players at minute m of Aston Villa game
     """
     
     # matches['AstonVilla'] = 3856030
@@ -18,7 +29,7 @@ def stats_match(m):
 
     ### Players in game
 
-    # Every minute, compute the obv of all players on the pitch
+    # Every minute, compute the obv and various metrics of all players on the pitch
 
     substitued = events_AstonVilla.loc[events_AstonVilla['type.id']==19, 'player.id']
 
@@ -42,7 +53,18 @@ def stats_match(m):
 
 def build_test(m): 
     """
-    m: minute of the game
+    Build the data to be passed into the model
+    Used into the function predict_best_subs
+    
+    Parameters
+    ----------
+    m: int
+        Minute of the game
+        
+    Returns
+    -------
+    DataFrame
+        A DataFrame of all possible combinations of substitutions to be tested
     """
     
     players_on_pitch = stats_match(m)
@@ -159,8 +181,6 @@ def predict_best_subs(model, m):
         columns = {'player.id': 'substitution.replacement.id',
                    **{i: i+'_in' for i in sub_colums[1:]}}),
                                 how='left')
-    
-    best_subs = best_subs.replace('Hayley Emma Raso', 'Hayley Raso')
 
     return best_subs[:5] # 5 first
 

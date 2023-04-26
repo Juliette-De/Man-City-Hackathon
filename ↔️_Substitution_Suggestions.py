@@ -8,7 +8,7 @@ import streamlit as st
 from PIL import Image
 
 from load_data import fawsl, events, lineups, lineups_positions, matches, position, total, columns, categorical, ohe, explanation
-from functions import build_test, preprocessing, predict_best_subs, stats_player, highlight
+from functions import preprocessing, predict_best_subs, stats_player, highlight
 
 
 

@@ -154,6 +154,8 @@ total = events.groupby('player.id').agg(position = ('position.id', pd.Series.mod
                                        ).reset_index().fillna({'obv_total_net': 0}).astype({'player.id': 'int'})
 
 
+# Compute the number of minutes played
+
 lineups_positions['to'] = lineups_positions['to'].fillna('01:33:00.000')
 
 lineups_positions['minutes'] = (pd.to_datetime(
@@ -164,12 +166,12 @@ lineups_positions['player_name'] = lineups_positions['lineup.player_nickname'].c
 
 
 # We add minutes and player_name to total
+
 total = total.merge(lineups_positions.groupby('lineup.player_id').aggregate({'minutes': 'sum',
                                                                              'player_name' : 'first'}),
                     left_on = 'player.id',
                     right_on = 'lineup.player_id',
                     how='left')
-
 
 total = total.replace({'Deyna Cristina Castellanos Naujenis': 'Deyna Castellanos',
                        'Kerstin Yasmijn Casparij': 'Kerstin Casparij',
@@ -180,9 +182,8 @@ total = total.replace({'Deyna Cristina Castellanos Naujenis': 'Deyna Castellanos
                        'Ingrid Filippa Angeldal': 'Filippa Angeldal'})
 
 # Players that didn't play during the 6 available games
-total.loc[total['player_name'] == 'Vicky Losada', 'position'] = 14
-total.loc[total['player_name'] == 'Alexandra MacIver', 'position'] = 1
-
+total.loc[total['player_name'] == 'Vicky Losada', 'position'] = 14 # Center Midfield
+total.loc[total['player_name'] == 'Alexandra MacIver', 'position'] = 1 # Goalkeeper
 
 
 for i in ['xg', 'shots', 'fouls_won', 'fouls_committed', 'interceptions']:
