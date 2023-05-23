@@ -1,15 +1,18 @@
 import pandas as pd
 import numpy as np
 
-from load_data import events, total, matches, lineups, columns, categorical, ohe
+from load_data import events, total, matches, lineups, subs, columns, categorical, ohe
 
 
-lineups_AstonVilla = lineups[lineups['match_id'] == matches['AstonVilla']] # for build_test
+# Variables for build_test
+lineups_AstonVilla = lineups[lineups['match_id'] == matches['AstonVilla']]
+subs_AstonVilla = subs[(subs['match_id'] == matches['AstonVilla']) &
+                      (subs['team.id'] == 746)]['substitution.replacement.id']
 
 
 def stats_match(m):
     """
-    Returns match metrics of players on the pitch at minute m
+    Returns match metrics of players on the pitch at minute m (including players substituted in)
     Used into the function build_test and the page "All players"
     
     Parameters
@@ -30,7 +33,8 @@ def stats_match(m):
     ### Players in game
 
     # Every minute, compute the obv and various metrics of all players on the pitch
-
+    
+    # Players that were substitued off are excluded
     substitued = events_AstonVilla.loc[events_AstonVilla['type.id']==19, 'player.id']
 
     players_on_pitch = events_AstonVilla[(events_AstonVilla['team.id'] == 746) &
@@ -39,8 +43,11 @@ def stats_match(m):
                          obv_off_match = ('obv_total_net', 'sum'),
                          xg_off_match = ('shot.statsbomb_xg', 'sum'),
                          shots_off_match = ('type.id', lambda x: (x==16).sum()),
+                         pressures_off_match = ('type.id', lambda x: (x==17).sum()),
                          fouls_won_off_match = ('type.id', lambda x: (x==21).sum()),
                          fouls_committed_off_match = ('type.id', lambda x: (x==22).sum()),
+                         passing_off_match = ('pass', lambda x:100*(x==1).sum()/(
+                                            (x==1).sum()+(x==0).sum())),
                          interceptions_off_match = ('interception', lambda x:(x==1).sum())
                         ).reset_index().fillna({'fouls_committed_off': 0})
 
@@ -67,25 +74,28 @@ def build_test(m):
         A DataFrame of all possible combinations of substitutions to be tested
     """
     
+    
+    ### Players on the pitch
+    
     players_on_pitch = stats_match(m)
+    
+    # Exclude players that were substitued in from potential players to be substitued off
+    players_on_pitch = players_on_pitch[~players_on_pitch['player.id'].isin(subs_AstonVilla)]
     
      # Add total stats
     players_on_pitch = players_on_pitch.merge(total[['player.id', 'obv']].rename(columns={'obv': 'obv_off'}),
                                               how='left')
  
     
-    
-    
     ### Players on the bench
-
     
-    # Exclude all players who appear in the events table
+    # Exclude from the bench all players who appear in the events table
     bench = lineups_AstonVilla[(lineups_AstonVilla['team_id'] == 746) &
                                (~lineups_AstonVilla['player_id'].isin(
                                    events.loc[(events['match_id'] == 3856030) & (events['minute']<m), 'player.id'].unique()))].drop(columns=['player_name'])
     
 
-    ## Add the position and OBV on the players on the bench (no need to add features that we don't use to train)
+    ## Add the position and OBV of the players on the bench (no need to add features that we don't use to train)
     
     bench = bench.merge(total[['player.id', 'position', 'obv']].rename(columns={'player.id': 'player_id',
                                                                                 'position': 'position_in',
@@ -98,13 +108,30 @@ def build_test(m):
 
 
 
-    ### Dataframes : Matrices players on the pitch x player on the bench
+    ### DataFrames : Matrices players on the pitch x player on the bench
 
     X_test = players_on_pitch.merge(bench[['substitution.replacement.id', 'position_in', 'sum_obv_in']],
                                     how='cross')
     
     
-    # Data about the game
+    
+    ### Filter by position
+    
+    # Look all the positions taken by a player in all avaible games
+    X_test = X_test.merge(events.groupby('player.id')['position.id'].unique(),
+                          how='left',
+                          left_on = 'substitution.replacement.id',
+                          right_on = 'player.id').rename(
+        columns={'position.id': 'possible_position_in'})
+    
+    X_test['possible_position_in'] = X_test['possible_position_in'].fillna("").apply(list)
+
+    # Filter
+    X_test = X_test[[x in y for x,y in zip(X_test['position_off'],
+                                           X_test['possible_position_in'])]]
+    
+    
+    ### Add data about the game
     
     X_test = events.loc[(events['match_id'] == 3856030) &
                         (events['minute']<m) &
@@ -112,13 +139,13 @@ def build_test(m):
                           ['minute', 'second', 'team.id', 'opponent.id', 'GF', 'GA', 'GD', 'status',
                            'xgF', 'xgA', 'xgD']].tail(1).merge(X_test, how='cross')
     
+    
     return X_test
 
 
 
 
 def preprocessing(array_hot_encoded, df):
-    
     #Convert one_hot_encoded dataframe to df
     data_hot_encoded = pd.DataFrame(array_hot_encoded,
                                     index=df.index,
@@ -134,7 +161,23 @@ def preprocessing(array_hot_encoded, df):
 
 
 def predict_best_subs(model, m):
+    """
+    Returns the 5 best substitutions
     
+    Parameters
+    ----------
+    model:
+        Pre-trained model
+
+    m: int
+        Minute of the game
+        
+    Returns
+    -------
+    DataFrame
+        A DataFrame of the best combinations of substitutions tested
+    """
+        
     X_test = build_test(m)
     
     test_array_hot_encoded = ohe.transform(X_test[categorical])
@@ -153,24 +196,21 @@ def predict_best_subs(model, m):
     best_subs = X_test.sort_values('predicted_obv', ascending=False)
     
     
-    ## Filter by position
-    
-    # Look all the positions taken by a player in all avaible games
-    best_subs = best_subs.merge(events.groupby('player.id')['position.id'].unique(),
-                                how='left',
-                                left_on = 'substitution.replacement.id', right_on = 'player.id').rename(
-        columns={'position.id': 'possible_position_in'})
-    best_subs['possible_position_in'] = best_subs['possible_position_in'].fillna("").apply(list)
-
-    
     # Filter
-    best_subs = best_subs[[x in y for x,y in zip(best_subs['position_off'], best_subs['possible_position_in'])]
-                         & (best_subs['predicted_obv']>0)]
+    best_subs = best_subs[best_subs['predicted_obv']>0]
 
     
     # Add names and stats for the two players
     
-    sub_colums = ['player.id', 'player_name', 'xg', 'shots', 'fouls_won', 'fouls_committed', 'interceptions']
+    sub_colums = ['player.id',
+                  'player_name',
+                  'xg',
+                  'shots',
+                  'pressures',
+                  'fouls_won',
+                  'fouls_committed',
+                  'passing',
+                  'interceptions']
 
     best_subs = best_subs.merge(total[sub_colums].rename(
         columns = {i: i+'_off' for i in sub_colums[1:]}),
@@ -187,14 +227,29 @@ def predict_best_subs(model, m):
 
 
 def stats_player(s):
+    """
+    Returns statistic about a particular player depending on her position during the game
+    
+    Parameters
+    ----------
+    s: DataFrame
+        Single-row DataFrame
+        
+    Returns
+    -------
+    DataFrame
+        A DataFrame of the statistics of the player
+    """
     
     col = ['Game', 'Avg last 5 games']
     
     obv = [s['obv_off_match'], s['obv_off']]
     xg = [s['xg_off_match'], s['xg_off']]
     shots = [s['shots_off_match'], s['shots_off']]
+    pressures = [s['pressures_off_match'], s['pressures_off']]
     fouls_won = [s['fouls_won_off_match'], s['fouls_won_off']]
     fouls_committed = [s['fouls_committed_off_match'], s['fouls_committed_off']]
+    passing = [s['passing_off_match'], s['passing_off']]
     interceptions = [s['interceptions_off_match'], s['interceptions_off']]
     
     obv_row='On-Ball Value'
@@ -205,25 +260,37 @@ def stats_player(s):
                              col)
     
     elif s['position_off'] in np.arange(2,9): # Back
-        return pd.DataFrame(np.array([obv, interceptions, fouls_committed]),
-                             [obv_row, 'Interceptions', 'Fouls Committed'],
+        return pd.DataFrame(np.array([obv, passing, pressures, interceptions, fouls_committed]),
+                             [obv_row, 'Passing %', 'Pressures', 'Interceptions', 'Fouls Committed'],
                              col)
         
     elif s['position_off'] in np.concatenate((np.arange(9,17),np.arange(18,21))): # Midfield
-        return pd.DataFrame(np.array([obv, xg, shots, fouls_won, fouls_committed]),
-                             [obv_row, 'xG', 'Shots', 'Fouls Won', 'Fouls Committed'],
+        return pd.DataFrame(np.array([obv, xg, shots, pressures, fouls_won, fouls_committed, passing]),
+                             [obv_row, 'xG', 'Shots', 'Pressures', 'Fouls Won',  'Fouls Committed', 'Passing %'],
                              col)
         
     else: #s['position_off'].isin(np.concatenate(([17],np.arange(21, 26)))): # Forward
-        return pd.DataFrame(np.array([obv, xg, shots, fouls_won]),
-                             [obv_row, 'xG', 'Shots', 'Fouls Won'],
-                             col)
+        return pd.DataFrame(np.array([obv, xg, shots, pressures, fouls_won]),
+                            [obv_row, 'xG', 'Shots', 'Pressures', 'Fouls Won'],
+                            col)
     
     
 def highlight(x, m):
     """
-    x: DataFrame to be styled
-    m: minute of the game
+    Returns a DataFrame containing colors (green, red or black) to be applied to each element
+    
+    Parameters
+    ----------
+    x: DataFrame
+        DataFrame to be styled
+        
+    m: int
+        Minute of the game
+        
+    Returns
+    -------
+    DataFrame
+        A DataFrame with same shape as x
     """
 
     df1 = pd.DataFrame(index=x.index, columns=x.columns) # background-color: 
@@ -233,22 +300,28 @@ def highlight(x, m):
     col2 = df1.columns[1]
     
     #rewrite values by boolean masks
-    df1.loc[[obv_row], col1] = np.where((x.loc[[obv_row]][col1] > x.loc[[obv_row]][col2]),
-                                                           'color: green;',
-                                                           'font-weight: bold; color: red;')
+    #df1.loc[[obv_row], col1] = np.where((x.loc[[obv_row]][col1] < x.loc[[obv_row]][col2]),
+    #                                                       'color: red;',
+    #                                                       'font-weight: bold; color: green;')
     
-    for i in df1.index[1:]:
+    for i in df1.index:
         
-        if i in ['xG', 'Shots', 'Fouls Won', 'Interceptions']:
+        if i in ['On-Ball Value', 'Passing %']:
+            df1.loc[[i], col1] = np.where((x.loc[i, col1] < x.loc[i,col2]),
+                                                           'color: red; font-weight: bold !important',
+                                                           'color: green;')
+            
+        
+        elif i in ['xG', 'Shots', 'Pressures', 'Fouls Won', 'Interceptions']: # positive
             if x.loc[i, col1]*(90/m) < x.loc[i, col2]:
                 df1.loc[[i], col1] = 'color: red'
             elif x.loc[i, col1] > x.loc[i, col2]:
                 df1.loc[[i], col1] = 'color: green'
         
-        if i in ['Fouls Committed']:
+        elif i=='Fouls Committed': # negative
             if x.loc[i, col1] > x.loc[i, col2]:
                 df1.loc[[i], col1] = 'color: red'
             elif x.loc[i, col1]*(90/m) < x.loc[i, col2]:
                 df1.loc[[i], col1] = 'color: green'
-  
+
     return df1

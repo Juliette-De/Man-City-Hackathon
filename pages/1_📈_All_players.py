@@ -29,7 +29,15 @@ all_players = stats_match(minute_to_filter)
     
 #sub_colums = ['player.id', 'player_name', 'xg', 'shots', 'fouls_committed']
 all_players = all_players.merge(total.rename(
-    columns = {i: i+'_off' for i in ['player_name', 'obv', 'xg', 'shots', 'fouls_won', 'fouls_committed', 'interceptions']}), # already position_off
+    columns = {i: i+'_off' for i in ['player_name',
+                                     'obv',
+                                     'xg',
+                                     'shots',
+                                     'pressures',
+                                     'fouls_won',
+                                     'fouls_committed',
+                                     'passing',
+                                     'interceptions']}), # already position_off
                                 on='player.id',
                                 how='left').sort_values('obv_off_match', ascending=True)
 
@@ -57,8 +65,8 @@ forwards = all_players[all_players['position'].isin(position['forwards'])]
 
 def display_player(player):
     stats1 = stats_player(player)
-    int_col = [value for value in ['Shots', 'Fouls Won', 'Fouls Committed', 'Interceptions'] if value in stats1.index]
-    st.image(Image.open('pictures/' + str(player['player.id']) + '.png')) # width=300 slightly small, 400 too large
+    int_col = [value for value in ['Shots', 'Pressures', 'Fouls Won', 'Fouls Committed', 'Interceptions'] if value in stats1.index]
+    st.image(Image.open('pictures/' + str(player['player.id']) + '.png'), width=300) # width=300 slightly small, 400 too large
     #st.write(player['player_name_off'])
     st.markdown("""
     #### <p height:200px><center>""" + player['player_name_off'] + '</center></p>', unsafe_allow_html=True)

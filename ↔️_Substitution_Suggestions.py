@@ -7,52 +7,12 @@ from sklearn.preprocessing import StandardScaler
 import streamlit as st
 from PIL import Image
 
-from load_data import fawsl, events, lineups, lineups_positions, matches, position, total, columns, categorical, ohe, explanation
+from load_data import fawsl, events, lineups, lineups_positions, matches, position, subs, columns, categorical, ohe, explanation
 from functions import preprocessing, predict_best_subs, stats_player, highlight
 
 
 
-
-### Features engineering 
-
-
-## Adding position of the player substitued in
-
-subs = events[events['type.id']==19]
-
-subs = subs.merge(lineups_positions[['match_id', 'counterpart_id', 'lineup.player_id', 'position_id']],
-                  how='left',
-                  left_on=['match_id', 'player.id', 'substitution.replacement.id'], 
-                  right_on=['match_id', 'counterpart_id', 'lineup.player_id'])
-
-subs = subs.rename(columns={'position.id': 'position_off', # Position when the substitution happened, different from position_off_match
-                            'position_id': 'position_in'})
-
-
-## Adding On-Ball-Values (per match)
-
-subs = subs.merge(events.groupby(['match_id', 'player.id'])['obv_total_net'].sum().reset_index().rename(
-    columns={'obv_total_net': 'obv_off_match'}), # 11*2*6+40 = 172 sum
-                  how='left')
-
-subs = subs.merge(events.groupby(['match_id', 'player.id'])['obv_total_net'].sum().reset_index().rename(
-    columns={'player.id':'substitution.replacement.id', 'obv_total_net': 'obv_in'}),
-                  how='left')
-
-subs['obv'] = subs['obv_in'] - subs['obv_off_match']
-
-
-
-## Adding summed On-Ball-Values
-
-subs = subs.merge(total.drop('player_name', axis=1).rename(columns={'obv': 'obv_off'}), how='left')
-subs = subs.merge(total[['player.id', 'obv']].rename(columns={'obv': 'sum_obv_in',
-                                                              'player.id':'substitution.replacement.id'}),
-                  how='left')
-
-
 ### Model
-
 
 ## Prepare training dataset
 
@@ -67,7 +27,8 @@ Y_train = train['obv_in']
 train_array_hot_encoded = ohe.fit_transform(X_train[categorical])
 X_train = preprocessing(train_array_hot_encoded, X_train)
 
-model = make_pipeline(StandardScaler(with_mean=False), LinearRegression())
+model = make_pipeline(StandardScaler(with_mean=False),
+                      LinearRegression())
 model.fit(X_train, Y_train)
 
 
@@ -108,8 +69,10 @@ for i in range(len(predicted_subs)):
     obv_in = [round(s['predicted_obv_in'], 2), s['sum_obv_in']]
     xg_in = ['', s['xg_in']]
     shots_in = ['', s['shots_in']]
+    pressures_in = ['', s['pressures_in']]
     fouls_won_in = ['', s['fouls_won_in']]
     fouls_committed_in = ['', s['fouls_committed_in']]
+    passing_in = ['', s['passing_in']]
     interceptions_in = ['', s['interceptions_in']]
     
     # Stats for the player to be substitued off
@@ -126,21 +89,41 @@ for i in range(len(predicted_subs)):
                              col_in).astype({col_in[1]: 'float'})
     
     elif s['position_off'] in position['defenders']:
-        stats2 = pd.DataFrame(np.array([obv_in, interceptions_in, fouls_committed_in]),
-                             [obv_row, 'Interceptions','Fouls Committed'],
+        stats2 = pd.DataFrame(np.array([obv_in,
+                                        passing_in,
+                                        pressures_in,
+                                        interceptions_in,
+                                        fouls_committed_in]),
+                             [obv_row,
+                              'Passing %',
+                              'Pressures',
+                              'Interceptions',
+                              'Fouls Committed'],
                              col_in).astype({col_in[1]: 'float'})
     
     elif s['position_off'] in position['midfielders']:
-        stats2 = pd.DataFrame(np.array([obv_in, xg_in, shots_in, fouls_won_in, fouls_committed_in]),
-                             [obv_row, 'xG', 'Shots', 'Fouls Won', 'Fouls Committed'],
+        stats2 = pd.DataFrame(np.array([obv_in,
+                                        xg_in,
+                                        shots_in,
+                                        pressures_in,
+                                        fouls_won_in,
+                                        fouls_committed_in,                              
+                                        passing_in]),
+                             [obv_row,
+                              'xG',
+                              'Shots',
+                              'Pressures',
+                              'Fouls Won',
+                              'Fouls Committed',
+                              'Passing %',],
                              col_in).astype({col_in[1]: 'float'})
         
     else: # Forward
-        stats2 = pd.DataFrame(np.array([obv_in, xg_in, shots_in, fouls_won_in]),
-                             [obv_row, 'xG', 'Shots', 'Fouls Won'],
+        stats2 = pd.DataFrame(np.array([obv_in, xg_in, shots_in, pressures_in, fouls_won_in]),
+                             [obv_row, 'xG', 'Shots', 'Pressures', 'Fouls Won'],
                              col_in).astype({col_in[1]: 'float'})
         
-    int_col = [value for value in ['Shots', 'Fouls Won', 'Fouls Committed', 'Interceptions'] if value in stats1.index]
+    int_col = [value for value in ['Shots', 'Pressures', 'Fouls Won', 'Fouls Committed', 'Interceptions'] if value in stats1.index]
     
     
     with col1:
