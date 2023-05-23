@@ -26,16 +26,17 @@ streamlit run path/↔️_Substitution_Suggestions.py
 This application offers the following three features, each on one page:
 - The "↔️ Substitutions Suggestions" page features a substitution recommendation system based on StatsBomb's On-Ball Values. Every minute, a model tests different combinations of possible substitutions and brings out those that would be the most profitable.
 It therefore offers two features in one:
-  - identifying players who are underperforming in the ga﻿me in progress;
+  - identifying players who are underperforming during the game in progress;
   - suggesting a potential substitute to these players - based on past player performance and game context.
-- The "📈 All players" page offers an overview of the performance of all players on the pitch
+- The "📈 All players" page offers an overview of the performance of all players on the pitch.
 - The "⏱️ Opponent Substitution Prediction" page presents the probable future substitutions of the opposing team, based on historical data and the scenario of the game, to possibly allow the coach to anticipate.
 
 
 ## Next steps
 
+
 - Consider not only the cumulative On-Ball Values but also a Time Series of their evolution during the match.
-- Include tracking data to also take into account off-ball events (pressing, etc.).
+- Include data relating to off-ball events, in particular through tracking data (pressing, etc.)
 
 
 
