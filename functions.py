@@ -228,7 +228,7 @@ def predict_best_subs(model, m):
 
 def stats_player(s):
     """
-    Returns statistic about a particular player depending on her position during the game
+    Returns statistics about a particular player depending on her position during the game
     
     Parameters
     ----------
