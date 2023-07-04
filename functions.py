@@ -23,7 +23,7 @@ def stats_match(m):
     Returns
     -------
     DataFrame
-        A DataFrame of math metrics of all ManCity players at minute m of Aston Villa game
+        A DataFrame of match metrics of all ManCity players at minute m of Aston Villa game
     """
     
     # matches['AstonVilla'] = 3856030
