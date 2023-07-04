@@ -151,7 +151,7 @@ def preprocessing(array_hot_encoded, df):
                                     index=df.index,
                                     columns = ohe.get_feature_names_out())
     
-    #Extract only the columns that didnt need to be encoded: drop categorical columns and keep numerical ones
+    #Extract only the columns that didn't need to be encoded: drop categorical columns and keep numerical ones
     data_other_cols = df.drop(columns=categorical)
     
     #Concatenate the two dataframes : 
