@@ -117,7 +117,7 @@ def build_test(m):
     
     ### Filter by position
     
-    # Look all the positions taken by a player in all avaible games
+    # Look all the positions taken by a player in all available games
     X_test = X_test.merge(events.groupby('player.id')['position.id'].unique(),
                           how='left',
                           left_on = 'substitution.replacement.id',
