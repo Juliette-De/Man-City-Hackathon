@@ -272,7 +272,7 @@ categorical = ['team.id', 'opponent.id', 'status',
                'player.id', 'position_off',
                'substitution.replacement.id', 'position_in']
 
-ohe = OneHotEncoder(sparse=False, handle_unknown="ignore")
+ohe = OneHotEncoder(sparse_output=False, handle_unknown="ignore")
 
 position = {'goalkeepers': 1,
             'defenders': np.arange(2,9),
