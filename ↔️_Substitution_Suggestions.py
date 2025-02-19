@@ -128,9 +128,9 @@ for i in range(len(predicted_subs)):
     
     with col1:
         try:
-            st.image(Image.open('pictures/' + str(s['player.id']) + '.png'), use_column_width=True)
+            st.image(Image.open('pictures/' + str(s['player.id']) + '.png'), use_container_width=True)
         except IOError:
-            st.image(Image.open('pictures/default.png'), use_column_width=True)
+            st.image(Image.open('pictures/default.png'), use_container_width=True)
         st.markdown('## <center>' + s['player_name_off'] + '</center>', unsafe_allow_html=True)  
         st.dataframe(stats1.style.format("{:.2f}").format(precision=0, subset=(int_col, stats1.columns[0]) # Game column
                                                          ).apply(highlight, m=minute_to_filter, axis=None))
@@ -138,9 +138,9 @@ for i in range(len(predicted_subs)):
     with col2:
         try:
             st.image(Image.open('pictures/' + str(s['substitution.replacement.id']) + '.png'),
-                     use_column_width=True)
+                     use_container_width=True)
         except IOError:
-            st.image(Image.open('pictures/default.png'), use_column_width=True)
+            st.image(Image.open('pictures/default.png'), use_container_width=True)
         st.markdown('## <center>' + s['player_name_in'] + '</center>', unsafe_allow_html=True)
         st.dataframe(stats2.style.format({'Avg last 5 games': "{:.2f}"}))
         
