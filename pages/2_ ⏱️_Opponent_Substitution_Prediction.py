@@ -68,9 +68,9 @@ players = players.replace({'Emma Stina Blackstenius': 'Stina Blackstenius',
 
 def display_player(player):
     try:
-        st.image(Image.open('pictures/' + player['player_name'] + '.png'), use_column_width=True)
+        st.image(Image.open('pictures/' + player['player_name'] + '.png'), use_container_width=True)
     except IOError:
-        st.image(Image.open('pictures/default.png'), use_column_width=True)
+        st.image(Image.open('pictures/default.png'), use_container_width=True)
     #image_path = 'pictures/' + player['player_name'] + '.png'
     #if not os.path.isfile(image_path):
     st.markdown("""
